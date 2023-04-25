@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexBox</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Helvetica;
+            margin: .5vh;
+        }
+
+        .container-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid black;
+            background-color: #ccc;
+        }
+
+        .item-header {
+            margin: 10px 20px;
+            font-weight: normal;
+        }
+
+        #button-header {
+            padding: 3px 25px;
+            border-radius: 10px;
+        }
+
+        #button-header:hover {
+            padding: 10px 35px;
+            background-color:olivedrab;
+            font-weight: bold;
+        }
+
+        #logo-header {
+            font-size: 15px;
+        }
+
+        main {
+            height: 220vh;
+        }
+
+        .container-articles {
+            /* background-color: lightpink; */
+            display: flex;
+            flex-direction: column;
+            justify-content:space-between;
+            align-items: center;
+        }
+
+        .articles {
+            padding: 1em;
+            /* background-color: lightgreen; */
+            border: 2px solid black;
+            text-align: center;
+            width: 80%;
+        }
+
+        article h1 {
+            margin-bottom: 1em;
+        }
+
+        .container-grid {
+            /* background-color: lightcoral; */
+            margin: 5px 0;
+            display: grid;
+            flex-direction: column;
+            grid-template-columns: 20% 60% 20%;
+            height: 50%;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        li:hover {
+            padding: 10px;
+            background-color: #ccc;
+            /* color: blue; */
+            border-radius: 20px;
+        }
+
+        li > a:hover {
+            color: blue;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            /* background-color: burlywood; */
+            border: 2px solid black;
+        }
+
+        .menu {
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .item-menu {
+            list-style-type: none;
+            margin-bottom: 30px;
+        }
+
+        .container-cards {
+            display: flex;
+            /* background-color: cadetblue; */
+            height: 97.5vh;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            column-gap: 30px;
+        }
+
+        .div-img {
+            background-color: cadetblue;
+            border: 2px solid black;
+            text-align: center;
+            width: 14vw;
+        }
+
+        .div-img img {
+            margin: 20px 0;
+        }
+
+        #h3-anime {
+            border: 2px solid black;
+            margin-top: 29px;
+            display: flex;
+            /* background-color: aqua; */
+            justify-content: center;
+            padding: 15px;
+            text-decoration-line: line-through;
+            font-size: 18px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        footer {
+            border: 2px solid black;
+            background-color: #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #text-footer {
+            margin:15px 25px;
+            font-size: 18px;
+            font-weight: normal;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="container-header">
+        <h3 class="item-header" id="logo-header">LOGO</h3>
+        <button class="item-header" id="button-header"><a>Logout</a></button>
+    </header>
+    
+    <main >
+        <div class="container-grid">
+            <nav class="nav-menu">
+                <h3>Animes 01 - 04</h3>
+                <ul class="menu">
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=fTYpqJvpPsw" target="_blank">Assista ao Anime 01</a></li>
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=r-2x-kwklgA" target="_blank">Assista ao Anime 02</a></li>
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=Pm9qfqMj6ww" target="_blank">Assista ao Anime 03</a></li>
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=fieqge7aYJM" target="_blank">Assista ao Anime 04</a></li>
+                </ul>
+            </nav>
+
+            <section class="container-articles">
+            
+                <article class="articles">
+                    <h1><u>Article 01</u></h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto velit cumque numquam culpa qui error explicabo ducimus porro consequatur quidem.o Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, sequi dolorem quos esse veniam obcaecati ratione eligendi odit officiis quasi dicta itaque eveniet ipsum maiores adipisci? Animi excepturi unde ullam? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio quidem, error, quo amet quod sed rem nobis distinctio tempore possimus, nesciunt excepturi placeat illo sapiente dignissimos delectus blanditiis maiores necessitatibus?</p>
+                </article>   
+
+                <article class="articles">
+                    <h1><u>Article 02</u></h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto velit cumque numquam culpa qui error explicabo ducimus porro consequatur quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, corrupti velit. Mollitia ullam, doloremque voluptates blanditiis cum a aliquam accusamus vitae illum. Aliquid dolore reprehenderit ipsam accusamus nostrum veritatis tenetur?Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam tenetur sit enim culpa hic aliquid, nobis voluptatum odio soluta fuga, saepe iure cupiditate velit eius blanditiis! Temporibus officiis molestiae reprehenderit.</p>
+                </article>   
+
+                <article class="articles">
+                    <h1><u>Article 03</u></h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto velit cumque numquam culpa qui error explicabo ducimus porro consequatur quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum quam rerum dolores eos quis dolorum. Maxime repellat unde porro temporibus? Incidunt dolor ullam fugiat, ab non eum. Quo rem neque, distinctio unde commodi exercitationem dolor? Aut praesentium odio odit natus! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minima eius culpa accusantium consectetur neque deleniti atque, quaerat obcaecati dignissimos qui est sed, asperiores, omnis quisquam reprehenderit dolores. Hic, numquam aliquam.</p>
+                </article>   
+            </section>
+
+            <nav class="nav-menu">
+                <h3>Animes 05 - 08</h3>
+                <ul class="menu">
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=hgxQ5k1OmrY" target="_blank">Assista ao Anime 05</a></li>
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=wrDoR656HFo" target="_blank">Assista ao Anime 06</a></li>
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=RUnPbPRKCxg" target="_blank">Assista ao Anime 07</a></li>
+                    <li class="item-menu"><a href="https://www.youtube.com/watch?v=4mH3VVzPbV0" target="_blank">Assista ao Anime 08</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div id="h3-anime">
+            <h3>ANIMES FAVORITOS</h3>
+        </div>
+        
+        <div class="container-cards">
+            <div class="div-img">
+                
+                <img src="./midia/card-1.jpg">
+                <p><b>01 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+            <div class="div-img">
+                <img src="./midia/card-2.jpg">
+                <p><b>02 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+            <div class="div-img">
+                <img src="./midia/card-4.jpg">
+                <p><b>03 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+            <div class="div-img">
+                <img src="./midia/card-5.jpg">
+                <p><b>04 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+            <div class="div-img">
+                <img src="./midia/card-6.jpeg">
+                <p><b>05 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+            <div class="div-img">
+                <img src="./midia/card-7.jpg">
+                <p><b>06 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+            <div class="div-img">
+                <img src="./midia/card-8.jpg">
+                <p><b>07 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+            <div class="div-img">
+                <img src="./midia/card-8.jpg">
+                <p><b>08 -</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam itaque officia labore, porro minus quod sint quisquam necessitatibus animi optio?</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h3 id="text-footer">Footer</h3>
+    </footer>
+    
+</body>
+</html>

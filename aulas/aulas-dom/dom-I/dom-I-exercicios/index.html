@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Exercícios DOM I</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  
+  <script src="script.js" defer></script>
+
+  <style>
+   
+    #btn {
+      color: aliceblue;
+      font-weight: 700;
+      background-color: black;
+      border-radius: 5px;
+      margin-top: 1rem;
+      padding: .5rem 3.8rem;
+    }
+
+    #inputFruit {
+      display: block;
+      padding: .5rem 2.4rem;
+      border-radius: 5px;
+      font-weight: 700;
+    }
+
+  </style>
+
+</head>
+
+<body>
+  <main>
+    <ul id="lista-de-frutas">
+      <li id="fruta-1"></li>
+      <li id="fruta-2"></li>
+      <li id="fruta-3"></li>
+      <li id="fruta-4"></li>
+    </ul>
+    <label for="inputFruit">Insira a Nova Fruta: </label>
+    <input type="text" id="inputFruit" value="">
+    <button id="btn" onclick="addFruit()">Adicionar Nova Fruta</button>
+  </main>
+</body>
+
+</html>

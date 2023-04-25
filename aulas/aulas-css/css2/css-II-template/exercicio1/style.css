@@ -1,0 +1,24 @@
+body {
+    color: orange
+}
+
+#texto-com-outra-cor {
+    color: green
+}
+
+.texto-com-background {
+    background-color: yellow;
+    width: 25vw;
+    height: 5vh;
+}
+
+section > p {
+    color: black;
+}
+
+/* Pseudoclass: conseguimos com isso selecionar algum elemento especifico e fazer a estilização de apenas um elemento sem precisar que criemos um id ou class - o valor que colocarmos dentro dos '()' será o elemento alterado*/
+
+section p:nth-child(1){
+    width: 25vw;
+    background-color: aqua;
+}

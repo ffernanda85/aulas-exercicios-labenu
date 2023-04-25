@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid-Template-Area</title>
+    <!-- PROPRIEDADES DE CONTAINER DE GRADE -->
+
+    <!-- 
+    
+
+     -->
+    <style>
+        .body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }        
+
+        .header {
+            grid-area: header;
+        }
+
+        .principal {
+            grid-area: principal;
+        }
+
+        .lateral {
+            grid-area: lateral;
+        }
+
+        .footer {
+            grid-area: footer;
+        }
+
+        .container {
+            display:  grid;
+            grid-template-columns: auto auto auto auto;
+            grid-template-rows: auto;
+            grid-template-areas: 
+                "header header header header"
+                "principal principal . lateral"
+                "footer footer footer footer"
+            ;
+        }
+
+        .item {
+            background-color: #048;
+            color: #fff;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item header">header</div>
+        <div class="item principal">main</div>
+        <div class="item lateral">aside</div>
+        <div class="item footer">footer</div>
+    </div>
+
+    
+</body>
+</html>

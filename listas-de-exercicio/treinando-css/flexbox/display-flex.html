@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudando FlexBox - Propriedade Display Flex</title>
+<!-- DISPLAY FLEX - PERMITE QUE SEUS ITENS SEJAM FLEXIVEIS E SE AJUSTEM AO TAMANHO DE SEUS FLEX-CONTAINERS  -->
+<!-- PROPRIEDADE EXCLUSIVA PARA CONTAINER E NÃO PARA ITENS! -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .item {
+            margin: 5px;
+            padding: 5px;
+            background-color: lightblue;
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+
+        .flex {
+            display: flex;/* Os itens (flex-itens) vão se ajustando ao tamanho do flex-container (altura e largura) */
+        }
+
+        body {
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container flex">
+        <div class="item tam1">Teste - Div 1</div>
+        <div class="item tam2">Teste - Div 2</div>
+        <div class="item tam3">Teste - Div 3</div>
+    </div>
+</body>
+
+</html>

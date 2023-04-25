@@ -1,0 +1,57 @@
+/* nessa parte podemos praticar como o flex só afeta os filhos diretos */
+
+nav {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    width: 200px;
+    height: max-content;
+    border-radius: 8px;
+    background-color:#a8bbc6;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    padding-left: 4px;
+}
+
+ul {
+    background-color:#eeeeee;
+    border-radius: 8px;
+    width: 150px;
+    margin: 16px auto;
+}
+
+li {
+    background-color: #f8e1cb;
+    margin: 8px 0;
+    border-radius: 8px;
+    text-align: center;
+    padding: 8px;
+}
+
+/* nessa parte podemos praticar as propriedades do flex container */
+main {
+    border: 1px solid black;
+    margin: 16px;
+    background-color:#a8bbc6;
+    width: 53.5vw;
+    height: 20vh;
+    padding: 8px;
+    display: flex;
+    border-radius: 8px;
+}
+
+div {
+    border: 1px solid black;
+    background-color:#eeeeee;
+    text-transform: uppercase;
+    font-family: 'Courier New', Courier, monospace;
+    height: 15px;
+    border-radius: 8px;
+    height: 100px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

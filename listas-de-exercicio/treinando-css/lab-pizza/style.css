@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    
+}
+
+/* Utilize a unidade de medida em */
+
+/* Nesse projetinho, vc pode utilizar 
+    margin, margin-top/left, padding, height. backgound-color, cursor-pointer, text-align:center
+*/
+
+body{
+   background-color: #ccc;
+}
+
+
+header{
+    background-color: brown;
+    padding: 1.5em;
+}
+
+.logo{
+    font-size: 4rem;
+    color: orange
+}
+
+main{
+    height: 80vh;
+}
+
+
+section{    
+    margin-top: 6vh;
+    padding: 2em;
+    border: 5px solid #000;
+    height: 20vh;
+    border-radius: 10px;
+    background-color: rgb(235, 100, 100);
+    font-size: 1.5em;
+}
+
+.item-1{
+    float: left;
+    color: #fff;
+    
+}
+
+
+.item-2{
+    width: 10vw;
+    float: right;
+    
+}
+
+
+.preco{
+    margin-top: 7vh;
+}
+
+img{
+    height: 15vh;
+    width: 8vw;
+    border-radius: 10px;
+}
+
+
+button{
+    margin-top: 1em;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color:darkgoldenrod;
+    padding: .5em;
+    width: 8vw;
+    /* border: none; */
+}
+
+button:hover{
+    background-color: rgb(7, 5, 0);
+    color: orange;
+}
+
+
+footer{
+    background-color:rgb(113, 7, 7);
+    padding: 2em;
+    
+
+}
+
+
+.footer-text{
+    margin-top: 3em;
+    font-size: 2em;
+    text-align: center;
+}

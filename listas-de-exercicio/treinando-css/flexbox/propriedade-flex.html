@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudando FlexBox - Propriedade Flex</title>
+<!-- FLEX É UMA PROPRIEDADE APLICADA DIRETAMENTE NO ITEM E NÃO AO CONTAINER -->
+
+<!-- VAI DETERMINAR A CAPACIDADE QUE O ELEMENTO TEM DE SE REDUZIR DENTRO DE UM CONTAINER -->
+
+<!-- QUANTO MAIOR O VALOR ATRIBUIDO AO FLEX-SHRINK, MAIOR A CAPACIDADE DE REDUÇÃO DO ELEMENTO -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+
+        .item {
+            color: #fff;
+            padding: 5px;
+            margin: 5px;
+            background-color: lightblue;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 600px;
+            height: 400px;
+            margin: 0 auto;
+            border: 2px solid black;
+            justify-content: center;/* não fará efeito em itens com o flex-grow (alinha com o eixo principal e distribui os itens de forma igual sem encostar no start / end )*/
+            align-items: center;/* alinha baseado no eixo secundário*/
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .quebra {
+            flex-wrap: wrap;/* quebra de linha */
+        }
+
+        /* Flex-Grow é uma propriedade de itens e não de container */
+        /* O flex-grow define a habilidade de um flex-item de aumentar ou não dentro de seu container */
+        /* Logo abaixo segue as proporções de ajustes do flex-grow (crescer) */
+        
+        .tam0 {
+            flex-grow: 0;
+        }
+
+        .tam1 {
+            flex-grow: 1;
+        }
+
+        .tam2 {
+            flex-grow: 2;
+        }
+
+        .tam3 {
+            flex-grow: 3;
+        }
+
+        .basea {
+            flex-basis: auto;
+        }
+
+        .base0 {
+            flex-basis: 0;
+        }
+
+        .base1 {
+            flex-basis: 1;
+        }
+
+        .base2 {
+            flex-basis: 2;
+        }
+
+        .base3 {
+            flex-basis: 3;
+        }
+        
+        /* A PROPRIEDADE ORDER ACEITA VALORES NEGATIVOS! */
+        .order0 {
+            order: 0;
+        }
+
+        .order1 {
+            order: 1;
+        }
+
+        .order2 {
+            order: 2;
+        }
+
+        .order3 {
+            order: 3;
+        }
+
+        .reduzir0 {
+            flex-shrink: 0;
+        }
+
+        .reduzir1 {
+            flex-shrink: 1;
+        }
+
+        .reduzir2 {
+            flex-shrink: 2;
+        }
+        
+        .reduzir3 {
+            flex-shrink: 3;
+        }
+
+        .flex0 {
+            flex: 1; /* configuramos com isso: flex grow:0 / flex-shrink:1 / flex-basis:0 */
+        } /* Pode ser inserido tbm um valor para cada propriedade... geralmente utilizamos com flex:o (para retirar dele a função de ser flex) ou flex:1 (faz com que o elemento se ajuste ao container)*/
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container flex">
+        <div class="item flex0">Teste</div>
+        <div class="item flex0">Teste DIV</div>
+        <div class="item flex0">Teste DIV 3 - DIV 3</div>
+    </div>
+</body>
+
+</html>

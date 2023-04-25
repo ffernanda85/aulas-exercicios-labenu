@@ -1,0 +1,60 @@
+h1 {
+    color: red;
+}
+
+/* sintaxe @media query */
+@media screen and (max-width: 500px) {
+/*MAX WIDTH = TELA MENORES QUE ALGUMA RESOLUÇÃO */
+    h1 {
+        color: blue;
+    };
+}
+
+/* OUTROS MODOS */
+/* 
+1 - PRINT: Quando o usuário imprime a nossa tela então podemos fazer modificações na media query para impressão.
+2 - SPEECH: quando se usa leitores de tela que vão fazer reconhecimento por voz do que está na página, daí podemos fazer modificações no css baseado nisso tbm. 
+3 - ALL: é o mais utilizado, pq atinge todos 
+*/
+
+@media print and (max-width: 600px) {
+    h1 {
+        color: green;
+    }
+    /* QUANDO DERMOS UM CTRL+P PARA IMPRIMIR A TELA, CASO A CONFIGURAÇÃO DE LAYOUT DE FOLHA DE IMPRESSÃO SEJA MENOR QUE 600PX DE LARGURA O TEXT MEDIA QUERY FICARÁ VERDE */
+}
+
+/*  4 - Todos os casos */
+
+@media (max-width: 700px) {
+    h2 {
+        color: purple;
+    }
+}
+
+/*  5 - Mobile first */
+/* min-width > max-width */
+/* No mobile first configuramos primeiro o min-width */
+
+@media (min-width: 200px) {
+    /* maiores do que 200px */
+    h2 {
+        color: teal;
+    }
+}
+
+/* 6 - AND na media query */
+@media (min-width: 300px) and (max-width: 400px) {
+    h3 {
+        font-size: 300px;
+    }
+}
+
+/* 7 - Orientation */
+/* orientation: identifica se a visualização é na horizontal ou vertical */
+   /* landscape: horizontal (aparelho deitado) */
+@media (orientation: landscape) {
+    h3 {
+        color: brown;
+    }
+}

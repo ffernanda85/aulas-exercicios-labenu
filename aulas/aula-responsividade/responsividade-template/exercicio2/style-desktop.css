@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+}
+
+section {
+    border: 1px solid black;
+    text-align: center;
+    font-size: 4rem;
+}
+
+/* tablets */
+@media screen and (min-device-width : 481px) and (max-device-width : 800px) {
+    main {
+        background-color: lightcoral;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    section {
+        font-size: 3rem;
+    }
+}
+
+ /* celulares */
+@media screen and (max-device-width : 480px) {
+    main {
+        background-color: lightgreen;
+        grid-template-columns: 1fr;
+    }
+
+    section {
+        border: 2px solid yellow;
+        font-size: 2rem;
+    }
+}

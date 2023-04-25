@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudando FlexBox - Propriedade Align-Items</title>
+<!-- 
+PROPRIEDADE ALIGN-ITEMS: VAI ALINHAR OS ITENS DE ACORDO COM O EIXO SECUNDÁRIO, OU SEJA, SERÁ SEMPRE O OPOSTO DO JUSTIFY-CONTENT.
+-->
+<!--  
+* FLEX-DIRECTION: ROW; ENTÃO O ALIGN-ITEMS ALINHARÁ NO SENTIDO VERTICAL 
+
+* FLEX-DIRECTION: COLUMN; ENTÃO O ALIGN-ITEMS ALINHARÁ NO SENTIDO HORIZONTAL.
+
+** CASO O FLEX-DIRECTION ESTEJA CONFIGURADO COM O REVERSE O JUSTIFY IRÁ INICIAR DE FORMA INVERTIDA (DA DIREITA PARA ESQUERDA / DE BAIXO PARA CIMA)
+
+*** O STRETCH (ESTICAR) É A FORMA DEFAULT E CASO O HEIGTH DO ITEM NÃO ESTEJA CONFIGURADA, O ITEM SE ESTICARÁ ATÉ OCUPAR TODA A ALTURA DO CONTAINER.
+-->
+<!-- PROPRIEDADE EXCLUSIVA PARA CONTAINER E NÃO PARA ITENS! -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .item {
+            margin: 5px;
+            padding: 5px;
+            background-color: lightblue;
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+            width: calc(33.3333% - 20px);/* inserindo calculo para fazer com que 3 itens ocupem a largura total do container... Fazemos isso dividindo o 100% por 3 que dá aprox 33.3333 e dessa proporção subtraimos a soma dos pixels referentes a margin e o padding que tenham no item */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            height: 400px;
+            border: 2px solid black;
+            /* flex-direction: column-reverse; */
+            
+        }
+
+        .flex {
+            display: flex;/* Os itens (flex-itens) vão se ajustando ao tamanho do flex-container (altura e largura) */
+        }
+
+        .horizontal-quebra {
+            flex-flow: row wrap;/* fluxo horizontal com quebra */
+        }
+        
+        .vertical {
+            flex-direction: column;
+        }
+
+        .justify-start {
+            justify-content: flex-start; /* CONFIGURAÇÃO DEFAULT DO JUSTIFY-CONTENT (ALINHAMENTO NO INICIO DO EIXO PRINCIPAL) */
+        }
+
+        .justify-end {
+            justify-content: flex-end; /* ALINHAMENTO NO FINAL DO EIXO PRINCIPAL */
+        }
+
+        .justify-center {
+            justify-content: center; /* ALINHAMENTO NO CENTRO DO EIXO PRINCIPAL */
+        }
+
+        .justify-espacamento-start-end {
+            justify-content: space-between; /* DISTRIBUI OS ITENS PELO CONTAINER DANDO ESPAÇAMENTOS IGUAIS ENTRE ELES, PORÉM O 1º COLADO NO START E O ULTIMO COLADO NO END DO EIXO PRINCIPAL */
+        }
+
+        .justify-com-espacamento {
+            justify-content: space-around; /* DISTRIBUI OS ITENS PELO CONTAINER DANDO ESPAÇAMENTOS IGUAIS ENTRE ELES, INCLUSIVE NO START E END DO EIXO PRINCIPAL */
+        }
+
+        .align-items-start {
+            align-items: flex-start; /* Alinha os itens no inicio do eixo secundário */
+        }
+
+        .align-items-end {
+            align-items: flex-end; /* Alinha os itens no final do eixo secundário */
+        }
+
+        .align-items-center {
+            align-items: center; /* Alinha os itens no centro do eixo secundário */
+        }
+
+        body {
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container flex horizontal-quebra justify-center align-items-center">
+        <div class="item tam1">Teste - Div 1</div>
+        <div class="item tam2">Teste - Div 2</div>
+        <div class="item tam3">Teste - Div 3</div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid-Area</title>
+    <!-- PROPRIEDADES DE ITEM DA GRADE -->
+
+    <!-- 
+    ATUA UNIFICANDO E DEFININDO AS SEGUINTES PROPRIEDADES (NESTA MESMA ORDEM): 
+
+    1º GRID-ROW-START
+    2º GRID-COLUMN-START
+    3º GRID-ROW-END
+    4º GRID-COLUMN-END
+
+     -->
+    <style>
+        .body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }        
+
+        .container {
+            display:  grid;
+            grid-template-columns: auto auto auto;
+            grid-gap: 10px; 
+        }
+
+        .item {
+            background-color: #048;
+            color: #fff;
+            border: 1px solid #000;
+            text-align: center;
+        }
+
+        .it1 {
+            grid-column: 1 / span 2; /* o span significa expandir - começa na coluna 1 e expande até a coluna 3 (só funciona para column)*/
+        }
+
+        .area1 {
+            grid-area: 1 / 1 / 3 / 3;
+        }
+
+        .area2 {
+            grid-area: 3 / 2 / 5 / 4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item area1">CFB Cursos 1</div>
+        <div class="item">CFB Cursos 2</div>
+        <div class="item">CFB Cursos 3</div>
+        <div class="item">CFB Cursos 4</div>
+        <div class="item">CFB Cursos 5</div>
+        <div class="item area2">CFB Cursos 6</div>
+        <div class="item">CFB Cursos 7</div>
+        <div class="item">CFB Cursos 8</div>
+        <div class="item">CFB Cursos 9</div>
+    </div>
+
+    
+</body>
+</html>

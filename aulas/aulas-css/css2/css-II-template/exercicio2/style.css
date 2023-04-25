@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body > a > img {
+    height: 8vh;
+    width: 3vw;
+    position: fixed;
+    right: 1vw;
+    bottom: 1vh;
+}
+
+header {
+    height: 10vh;
+    position: sticky;
+    top: 0;
+    border: 5px solid black;
+    background-color: #ccc;
+}
+
+header p {
+    font-size: 40px;
+    margin-top: 1vh;
+}
+
+li {
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 2vw;
+}
+
+ul {
+    position: fixed;
+    top: 5vh;
+    right: 2vw;
+}
+
+main {
+    height: 300vh;/* def a altura da tag main */
+    /* text-align: center; */
+     /* alinha o elemento na vertical, usando ele posso colocar diretamente no pai e ele alinha os filhos. Já o margin-to tem que ser colocado nos filhos para alinhar os elementos */
+}
+
+main > p {
+    font-size: 30px;
+    /* line-height: 10vh; */
+    /* margin-top: 50vh; */
+    /* uma forma de alinhar na vertical */
+}
+
+footer {
+    height: 10vh;
+    border: 5px solid black;
+    background-color: gray;
+    font-size: 50px;
+}
+
+.contato {
+    background-color: green;
+    height: 9vh;
+    width: 5vw;
+    border-radius: 50%;
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+}
+
+.card {
+    background-color: lightblue;
+    text-align: center;
+    height: 35vh;
+    width: 15vw;
+    margin-bottom: 2vh;
+    margin-left: 5vw;
+    display: inline-block;
+}
+
+#box-depositions {
+    margin: 50vh 15vw 5vh 15vw;
+}

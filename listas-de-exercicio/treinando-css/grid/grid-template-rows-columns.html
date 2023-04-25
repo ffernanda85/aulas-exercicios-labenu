@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid-Template-Columns e Grid-Template-Rows</title>
+
+    <style>
+        .body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }        
+
+        .container {
+            display:  grid;
+            /*grid-template-columns: auto auto;/* divide em 02 colunas de mesmo tamanho, ocupando todo o espaço do container */
+            /*grid-template-columns: auto auto auto auto;/* divide em 04 colunas de tamanhos iguais */
+            /*grid-template-columns: 100px 500px 600px auto;/* Aqui estou definindo que meu container terá 4 colunas, a 1ª tam 100px, a 2ª tam 500px, 3ª tam 600px e a 4ª todo o restante do espaço do container*/
+            grid-template-columns: auto auto;
+            /*grid-template-rows: 150px; /*Ao colocar apenas um valor no grid-template-rows defino apenas o tam da primeira linha, e as demais assumem o valor auto*/
+            grid-template-rows: 150px auto 80px ;
+        }
+
+        .item {
+            background-color: #048;
+            color: #fff;
+            border: 1px solid #000;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item">CFB Cursos 1</div>
+        <div class="item">CFB Cursos 2</div>
+        <div class="item">CFB Cursos 3</div>
+        <div class="item">CFB Cursos 4</div>
+        <div class="item">CFB Cursos 5</div>
+        <div class="item">CFB Cursos 6</div>
+        <div class="item">CFB Cursos 7</div>
+        <div class="item">CFB Cursos 8</div>
+        <div class="item">CFB Cursos 9</div>
+    </div>
+
+    
+</body>
+</html>

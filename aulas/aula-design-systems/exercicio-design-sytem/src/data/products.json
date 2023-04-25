@@ -1,0 +1,82 @@
+[
+    {
+      "code" : "01",
+      "description": "Frame 01",
+      "value": "R$ 700",
+      "discount": "R$ 900",
+      "color": ["#ef6024", "pink"],
+      "image": "https://randompicturegenerator.com/img/cat-generator/gdcc35fa367a4f18c23f14c6a336b5c644f993ab6b29f0df0bea189a571335e0944a717d096c0fc2d0f24ff8c3f634581_640.jpg"
+    },
+    {
+        "code" : "02",
+        "description": "Frame 02",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#7501d1", "black"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/gf5367b043ab01ef224c1e61e695e450a7b3880130700ca10f4a317db40929a16cec6042c3e3b34f607849d1885504c0d_640.jpg"
+    },
+    {
+        "code" : "03",
+        "description": "Frame 03",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#38a169", "green"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/g87b4d511f14f8b034eb354f1776eb6fde8dfbbfdcfcfaf137a5c04907f5681d2a5196a1aa33d451eb09a4d5785ab5227_640.jpg"
+    },
+    {
+        "code" : "04",
+        "description": "Frame 04",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#004170", "blue"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/gd289075a1c87a119496d8238bd50090bdb1e5c0d58db00f62ffa1b445aeeaa78424d38a473da6018ae4ab94fcab66d1f_640.jpg"
+    },
+    {
+        "code" : "05",
+        "description": "Frame 05",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#71C3FF", "gray"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/gffdf6fe2856fe4f81b3c44766235e10cf99cb6de5740c150d01c6f790049709f631c156929132c867f3e2bc782853b24_640.jpg"
+    },
+    {
+        "code" : "06",
+        "description": "Frame 06",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#F44900", "orange"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/g18cd07f4945447459df861419f5fd47e29ac99c4b5ba1e3f017ab434c22db6ff9e56aa0ca3d717bd9c0e9722801d5c7b_640.jpg"
+    },
+    {
+        "code" : "07",
+        "description": "Frame 07",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#33A4F5", "yellow"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/g7a50f181bbdf29523261229f1494b71f0f5ecf791f1fba26437e8f1ab016f8297c0cd2665a7761faac6522124a94c558_640.jpg"
+    },
+    {
+        "code" : "08",
+        "description": "Frame 08",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#BF9762", "brown"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/g26113bec6cb582a6b8e9005fd4ea09d8ac1b88cc0af8b7cd615f76d2c0cc8fd35cde00522cce9dd454c46b20fbb5100d_640.jpg"
+    },
+    {
+        "code" : "09",
+        "description": "Frame 09",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#FF6262", "purple"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/g4f364fb4696529bfd0c2b20494971084d004b866a19c48e0d3fb8559ca6b781f487ad1b39e84283b7ec7e2e332104af8_640.jpg"
+    },
+    {
+        "code" : "10",
+        "description": "Frame 10",
+        "value": "R$ 700",
+        "discount": "R$ 900",
+        "color": ["#AD61AE", "violet"],
+        "image": "https://randompicturegenerator.com/img/cat-generator/gccf6561742fafd5ffd8ea166e2d9e650270f6be9f5b930d98258873678f84c2f7830f728f29af4c743de4f318bade641_640.jpg"
+    }
+]

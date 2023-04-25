@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudando FlexBox - Propriedade Flex-Wrap</title>
+<!-- PROPRIEDADE FLEX-WRAP: VAI DEFINIR A QUEBRA DE LINHA OU NÃO DENTRO DO CONTAINER -->
+<!-- PROPRIEDADE EXCLUSIVA PARA CONTAINER E NÃO PARA ITENS! -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .item {
+            margin: 5px;
+            padding: 5px;
+            background-color: lightblue;
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px solid black;
+        }
+
+        .flex {
+            display: flex;/* Os itens (flex-itens) vão se ajustando ao tamanho do flex-container (altura e largura) */
+        }
+
+        .quebra {
+            flex-wrap: wrap; /* permite a quebra de linha */
+        }
+
+        .sem-quebra {
+            flex-wrap: nowrap;/* propriedade default do flex-wrap */
+        }
+
+        .quebra-reverse {
+            flex-wrap: wrap-reverse;/* quebra a linha ordenando os elementos de forma invertida em cada quebra*/
+        }
+
+        body {
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container flex quebra-reverse">
+        <div class="item tam1">Teste - Div 1</div>
+        <div class="item tam2">Teste - Div 2</div>
+        <div class="item tam3">Teste - Div 3</div>
+        <div class="item tam1">Teste - Div 4</div>
+        <div class="item tam2">Teste - Div 5</div>
+        <div class="item tam3">Teste - Div 6</div>
+        <div class="item tam3">Teste - Div 7</div>
+        <div class="item tam1">Teste - Div 8</div>
+        <div class="item tam2">Teste - Div 9</div>
+        <div class="item tam3">Teste - Div 10</div>
+        <div class="item tam2">Teste - Div 11</div>
+        <div class="item tam3">Teste - Div 12</div>
+    </div>
+</body>
+
+</html>

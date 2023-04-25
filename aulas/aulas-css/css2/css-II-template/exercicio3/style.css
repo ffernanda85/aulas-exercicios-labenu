@@ -1,0 +1,59 @@
+button {
+    height: 10vh;
+    width: 25vw;
+    border: 1px solid black;
+}
+
+button:hover {
+    background-color: red;
+    color: white;
+}
+
+button:active {
+    background-color: pink;
+    color: red;
+}
+
+section {
+    text-align: center;
+}
+
+div {
+    background-color: green;
+    margin: 5vh auto;/* só conseguimos trabalhar com elemento block */
+    width: 15vw;
+}
+
+span {
+    background-color: aqua;
+    width: 20vh;/* precisamos def altura e largura em elemento block, senão ele toma toda a largura da tela*/
+    height: 20vh;
+    display: block;/* transformando inline em block */
+    margin: 0 auto;/* só funciona para centralizar elemento block */
+}
+
+ul {
+    text-align: center;
+    margin-top: 5vh;
+}
+
+li {
+    list-style: none;
+    display: inline-block;/* libera o recebimento de propriedades de elementos block mesmo sendo inline */
+    height: 10vh;
+    width: 15vw;
+    margin-left: 5em;
+    text-align: center;
+}
+
+li:nth-child(1) {
+    background-color: lightblue;
+}
+
+li:nth-child(2) {
+    background-color: lightcoral;
+}
+
+li:nth-child(3) {
+    background-color: lightgreen;
+}

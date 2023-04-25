@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudando FlexBox - Propriedade Justify-Content</title>
+<!-- 
+PROPRIEDADE JUSTIFY-CONTENT: VAI ALINHAR OS ITENS DE ACORDO COM O EIXO PRINCIPAL, OU SEJA, ELE VAI DEPENDER DE COMO ESTARÁ CONFIGURADO O SEU FLEX-DIRECTION 
+-->
+<!--  
+* FLEX-DIRECTION: ROW; ENTÃO O JUSTIFY-CONTENT ALINHARÁ NO SENTIDO HORIZONTAL 
+
+* FLEX-DIRECTION: COLUMN; ENTÃO O JUSTIFY-CONTENT ALINHARÁ NO SENTIDO VERTICAL. NESSE CASO O HEIGTH DO CONTAINER PRECISARÁ ESTAR DEFINIDO.
+
+** CASO O FLEX-DIRECTION ESTEJA CONFIGURADO COM O REVERSE O JUSTIFY IRÁ INICIAR DE FORMA INVERTIDA (DA DIREITA PARA ESQUERDA / DE BAIXO PARA CIMA)
+-->
+<!-- PROPRIEDADE EXCLUSIVA PARA CONTAINER E NÃO PARA ITENS! -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .item {
+           /*  margin: 5px;
+            padding: 5px; */
+            background-color: lightblue;
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            height: 100px;
+            border: 2px solid black;
+        }
+
+        .flex {
+            display: flex;/* Os itens (flex-itens) vão se ajustando ao tamanho do flex-container (altura e largura) */
+        }
+
+        .horizontal-quebra {
+            flex-flow: row wrap;/* fluxo horizontal com quebra */
+        }
+
+        .horizontal-sem-quebra {
+            flex-flow: row nowrap;/* fluxo horizontal sem quebra - desnecessária pois já é a configuração default */
+        }
+
+        .vertical {
+            flex-direction: column;
+        }
+
+        .justify-start {
+            justify-content: flex-start; /* CONFIGURAÇÃO DEFAULT DO JUSTIFY-CONTENT (ALINHAMENTO NO INICIO DO EIXO PRINCIPAL) */
+        }
+
+        .justify-end {
+            justify-content: flex-end; /* ALINHAMENTO NO FINAL DO EIXO PRINCIPAL */
+        }
+
+        .justify-center {
+            justify-content: center; /* ALINHAMENTO NO CENTRO DO EIXO PRINCIPAL */
+        }
+
+        .justify-espacamento-start-end {
+            justify-content: space-between; /* DISTRIBUI OS ITENS PELO CONTAINER DANDO ESPAÇAMENTOS IGUAIS ENTRE ELES, PORÉM O 1º COLADO NO START E O ULTIMO COLADO NO END DO EIXO PRINCIPAL */
+        }
+
+        .justify-com-espacamento {
+            justify-content: space-around; /* DISTRIBUI OS ITENS PELO CONTAINER DANDO ESPAÇAMENTOS IGUAIS ENTRE ELES, INCLUSIVE NO START E END DO EIXO PRINCIPAL */
+        }
+
+        body {
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container flex vertical justify-espacamento-start-end">
+        <div class="item tam1">Teste - Div 1</div>
+        <div class="item tam2">Teste - Div 2</div>
+        <div class="item tam3">Teste - Div 3</div>
+    </div>
+</body>
+
+</html>

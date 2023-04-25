@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudando FlexBox - Propriedade Align-Content</title>
+<!-- 
+PROPRIEDADE ALIGN-CONTENT: VAI ALINHAR OS ITENS DE ACORDO COM O EIXO SECUNDÁRIO.
+-->
+<!--  
+* FLEX-DIRECTION: ROW; ENTÃO O ALIGN-ITEMS ALINHARÁ NO SENTIDO VERTICAL 
+
+* FLEX-DIRECTION: COLUMN; ENTÃO O ALIGN-ITEMS ALINHARÁ NO SENTIDO HORIZONTAL.
+
+** CASO O FLEX-DIRECTION ESTEJA CONFIGURADO COM O REVERSE O JUSTIFY IRÁ INICIAR DE FORMA INVERTIDA (DA DIREITA PARA ESQUERDA / DE BAIXO PARA CIMA)
+
+*** O STRETCH (ESTICAR) É A FORMA DEFAULT E CASO O HEIGTH DO ITEM NÃO ESTEJA CONFIGURADA, O ITEM SE ESTICARÁ ATÉ OCUPAR TODA A ALTURA DO CONTAINER.
+-->
+<!-- PROPRIEDADE EXCLUSIVA PARA CONTAINER E NÃO PARA ITENS! -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .item {
+            margin: 5px;
+            padding: 5px;
+            background-color: lightblue;
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+            width: calc(33.3333% - 20px);/* inserindo calculo para fazer com que 3 itens ocupem a largura total do container... Fazemos isso dividindo o 100% por 3 que dá aprox 33.3333 e dessa proporção subtraimos a soma dos pixels referentes a margin e o padding que tenham no item */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            height: 400px;
+            border: 2px solid black;
+            /* flex-direction: column-reverse; */
+            
+        }
+
+        .flex {
+            display: flex;/* Os itens (flex-itens) vão se ajustando ao tamanho do flex-container (altura e largura) */
+        }
+
+        .horizontal-quebra {
+            flex-flow: row wrap;/* fluxo horizontal com quebra */
+        }
+        
+        .vertical {
+            flex-direction: column;
+        }
+
+        .align-items-start {
+            align-items: flex-start; /* Alinha os itens no inicio do eixo secundário */
+        }
+
+        .align-items-end {
+            align-items: flex-end; /* Alinha os itens no final do eixo secundário */
+        }
+
+        .align-items-center {
+            align-items: center; /* Alinha os itens no centro do eixo secundário */
+        }
+
+        .align-content-center {
+            align-content: center;/* alinha os itens no centro eixo secundário, porém sem espaçamento entre os itens(diferente do align-items que insere espaços) */
+        }
+
+        .align-flex-end {
+            align-content: flex-end ;/* alinha os itens no final do eixo secundário, porém sem espaçamento entre os itens(diferente do align-items que insere espaços) */
+        }
+
+        .align-flex-start {
+            align-content: flex-start;/* alinha os itens no inicio do eixo secundário, porém sem espaçamento entre os itens(diferente do align-items que insere espaços) */
+        }
+
+        .align-space-around {
+            align-content: space-around;/* distribui os itens no container na direção do eixo secundário, porém com espaçamentos iguais entre os itens(é igual ao align-items:center) */
+        }
+
+        .align-space-between {
+            align-content: space-between;/* distribui os itens no container na direção do eixo secundário, porém com espaçamentos iguais entre os itens e o 1º item colado no start e o ultimo colado no end */
+        }
+
+        body {
+            margin-top: 5px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container flex horizontal-quebra align-space-between">
+        <div class="item tam1">Teste - Div 1</div>
+        <div class="item tam2">Teste - Div 2</div>
+        <div class="item tam3">Teste - Div 3</div>
+        <div class="item tam1">Teste - Div 4</div>
+        <div class="item tam2">Teste - Div 5</div>
+        <div class="item tam3">Teste - Div 6</div>
+        <div class="item tam1">Teste - Div 7</div>
+        <div class="item tam2">Teste - Div 8</div>
+        <div class="item tam3">Teste - Div 9</div>
+    </div>
+</body>
+
+</html>
