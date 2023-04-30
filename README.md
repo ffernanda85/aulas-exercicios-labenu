@@ -8,4 +8,5 @@ Você encontrará aqui:
 2) Exercícios de fixação
 3) Pequenos projetos
 4) Listas de exercícios
+5) Treinamentos
 
