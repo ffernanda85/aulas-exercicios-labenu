@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import * as s from "./styledDetails"
 import { goToHomePage } from "../../router/coordinator"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { GlobalContext } from "../../contexts/GlobalContext"
 
 export const Details = () => {

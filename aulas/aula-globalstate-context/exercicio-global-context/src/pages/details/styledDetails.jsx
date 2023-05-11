@@ -9,8 +9,8 @@ export const ContainerDetails = styled.div`
     gap: 2rem;
 `
 export const BtnToGoHome = styled.button`
-    width: 100px;
-    height: 30px;
+    width: 200px;
+    height: 50px;
     background-color: orange;
     color: white;
     border: none;

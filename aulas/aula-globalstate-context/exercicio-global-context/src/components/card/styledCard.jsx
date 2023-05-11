@@ -17,6 +17,7 @@ export const Container = styled.div`
 
     :hover {
         border: 3px solid #ff6262;
+        transform: scale(1.1);
     }
 `
 export const BtnToGoDetails = styled.button`
