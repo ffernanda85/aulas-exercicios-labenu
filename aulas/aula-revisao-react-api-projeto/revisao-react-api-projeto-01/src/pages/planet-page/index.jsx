@@ -1,6 +1,9 @@
 import { Header } from  '../../components/Header'
+import useProtectedPage from '../../hooks/useProtectedPage'
 
 export function PlanetPage() {
+    useProtectedPage()
+
     return (
         <>
             <Header/>

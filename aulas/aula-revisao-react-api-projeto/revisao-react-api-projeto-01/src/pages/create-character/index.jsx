@@ -1,6 +1,8 @@
 import { Header } from  '../../components/Header'
+import useProtectedPage from '../../hooks/useProtectedPage'
 
 export function CreateCharacterPage() {
+    useProtectedPage()
     return (
         <>
             <Header/>
