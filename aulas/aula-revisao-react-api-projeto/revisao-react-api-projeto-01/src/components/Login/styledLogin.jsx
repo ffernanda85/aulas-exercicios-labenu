@@ -67,13 +67,15 @@ export const StyledBtn = styled.button`
     font-size: 1.3vw;
     transition: all .5s ease;
     margin: 1.4vw 0;
-    :hover {
+
+    &:hover {
     letter-spacing: 3px;
     background-color: #7bd84f;
     color: hsl(0, 0%, 100%);
     box-shadow: #7bd84f 0px 7px 29px 0px;
     }
-    :active {
+    
+    &:active {
     letter-spacing: 3px;
     background-color: #7bd84f;
     color: hsl(0, 0%, 100%);
