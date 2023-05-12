@@ -6,7 +6,6 @@ export function HomePage() {
     return (
         <>
             <Header/>
-            <h1>Home Page</h1>
             <Login />
             <WellCome/>
         </>

@@ -12,7 +12,7 @@ export const Login = () => {
             .then((res) => {
             console.log(res.data)
         })
-        .catch(error => console.log(error.response))
+            .catch(error => { console.log(error.response.data); alert(error.response.data)})
     }
 
     return (
