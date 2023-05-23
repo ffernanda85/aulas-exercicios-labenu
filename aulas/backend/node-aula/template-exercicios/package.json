@@ -1,0 +1,13 @@
+{
+  "name": "labecommerce-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "clear && node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
