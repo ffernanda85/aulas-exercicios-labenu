@@ -7,7 +7,7 @@ function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
-const numberComputer = getRandomArbitrary(1, 4);
+const numberComputer = Math.floor(Math.random() * (4 - 1));
 
 switch (numberComputer) {
     case 1:
@@ -20,7 +20,6 @@ switch (numberComputer) {
         } else {
             result = "Você perdeu!"
         }
-
         break;
     
     case 2:
@@ -33,7 +32,6 @@ switch (numberComputer) {
         } else {
             result = "Você perdeu!"
         }
-       
         break;
 
     default:
@@ -46,7 +44,6 @@ switch (numberComputer) {
         } else {
             result = "Você perdeu!"
         }
-        
         break;
 }
 
