@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "retornaBrasil": "clear && node index.js braz",
+    "retornaPaisesB": "clear && node index.js b",
+    "adicionaPais": "clear && node index.js Bla BL",
+    "selecionarIdade": "clear && node exercicioFixacao.js Flavia 37"
   },
   "keywords": [],
   "author": "",
