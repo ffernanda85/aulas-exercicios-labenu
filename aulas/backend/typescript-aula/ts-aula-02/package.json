@@ -1,0 +1,26 @@
+{
+  "name": "ts-aula-02",
+  "version": "1.0.0",
+  "description": "**Vamos utilizar esse repositório para as práticas da aula!**",
+  "main": "index.js",
+  "scripts": {
+    "start-pratica": "tsc && node ./build/index.js",
+    "start-ex-1": "tsc && node ./build/fixacao/exercicio1/index.js",
+    "start-ex-2": "tsc && node ./build/fixacao/exercicio2/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/labenuexercicios/typescript-II-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/labenuexercicios/typescript-II-template/issues"
+  },
+  "homepage": "https://github.com/labenuexercicios/typescript-II-template#readme",
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "typescript": "^5.0.4"
+  }
+}
