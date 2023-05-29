@@ -50,7 +50,7 @@ const person03: TPerson = {
   favoriteColor: COLORS.AZUL
 }
 
-console.log(person);
-console.log(person01);
-console.log(person02);
-console.log(person03);
+//console.log(person);
+//console.log(person01);
+//console.log(person02);
+//console.log(person03);
