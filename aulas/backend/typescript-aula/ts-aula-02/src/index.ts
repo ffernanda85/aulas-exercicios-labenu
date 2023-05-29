@@ -36,18 +36,22 @@ const users3: Array<object> = [
   },
 ]; */
 
+import { type } from "os"
+
 
 /* PRÁTICA GUIADA - Parte 1
 Crie um sistema de cadastro de usuários que contenha:
 */
 //1.1 Type Alias para uma pessoa (TPerson) com as propriedades id, name, email, password e role;
 type TPerson = {
-    id: number | string,
+    id: string,
     name: string,
     email: string,
     password: string,
-    role: string
+    role: RoleUser
 }
+
+
 
 //1.2 Type Aliases para 2 contas (AdminAccount, NormalAccount) com as propriedades nickname e permission;
 
@@ -73,17 +77,54 @@ const userNormal: TNormalAccount = {
     permission: false
 }
 
-
-
-
-
-
-
 /* PRÁTICA GUIADA - Parte 2
 Vamos continuar nosso sistema de cadastro de usuários criando:
-
-1. Enum com valores ADMIN e NORMAL e atribua ã propriedade role do Tperson;
-2. Tipo Intersection unindo: pessoa(Person) + permissão (Role);
-3. Um array de usuários que permite guardar apenas usuários do tipo Person + Role;
-
 */
+//2.1 Enum com valores ADMIN e NORMAL e atribua a propriedade role do Tperson;
+
+enum RoleUser { //valores pré-definidos (não mudam)
+    Admin = "Admin",
+    Normal = "Normal"
+}
+
+const person: TPerson = {
+    id: "001",
+    name: "Flávia",
+    email: "flavia@email",
+    password: "123",
+    role: RoleUser.Admin
+}
+
+//2.2 Tipo Intersection unindo: pessoa(TPerson) + permissão (Role);
+
+type TPersonAdmin = TPerson & TAdminAccount
+type TPersonNormal = TPerson & TNormalAccount
+
+const personAdmin: TPersonAdmin = {
+    id: "002",
+    name: "Flávia F.",
+    email: "flavia2@email",
+    password: "1234",
+    role: RoleUser.Admin,
+    nickName: "userAdmin",
+    permission: true
+}
+
+const personNormal: TPersonNormal = {
+    id: "003",
+    name: "Flávia F. S.",
+    email: "flavia3@email",
+    password: "12345",
+    role: RoleUser.Normal,
+    nickName: "userNormal",
+    permission: false
+}
+
+//2.3 Um array de usuários que permite guardar apenas usuários do tipo Person + Role;
+//formas de tipar arrays com 02 tipos de types diferentes
+
+const usersPersonRole: Array<TPersonAdmin | TPersonNormal> = [personAdmin, personNormal]
+
+const usersPersonRole2: (TPersonAdmin | TPersonNormal)[] = [personAdmin, personNormal]
+
+//console.log(usersPersonRole)
