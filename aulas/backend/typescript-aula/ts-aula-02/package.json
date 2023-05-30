@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "**Vamos utilizar esse repositório para as práticas da aula!**",
   "main": "index.js",
+  
   "scripts": {
     "start-pratica": "tsc && node ./build/index.js",
     "start-ex-1": "tsc && node ./build/fixacao/exercicio1/index.js",

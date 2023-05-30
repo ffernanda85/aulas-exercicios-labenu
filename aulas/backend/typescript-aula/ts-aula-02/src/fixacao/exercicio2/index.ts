@@ -5,13 +5,9 @@ autor e um text. Abaixo, temos um exemplo de array de posts em JS!
 Tendo isso em mente, faça o que se pede:
 */
 //1. Crie um type para representar um post;
-
-type TPost = {
-  author: string;
-  text: string;
-};
-
 //2. Utilize o tipo criado acima para fazer a tipagem do array posts;
+
+import { TPost } from "../../types";
 
 const posts: TPost[] = [
   {
@@ -49,4 +45,4 @@ function buscarPostsPorAutor(posts: TPost[], autorInformado: string): TPost[] {
     )
   }
 
-console.log(buscarPostsPorAutor(posts, "Lord Voldemort"))
+console.table(buscarPostsPorAutor(posts, "Lord Voldemort"))

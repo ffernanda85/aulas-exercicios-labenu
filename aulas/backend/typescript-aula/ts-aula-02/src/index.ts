@@ -36,95 +36,74 @@ const users3: Array<object> = [
   },
 ]; */
 
-import { type } from "os"
+import { USER_ROLES, TPersonAdmin, TPersonNormal } from './types'
 
-
-/* PRÁTICA GUIADA - Parte 1
-Crie um sistema de cadastro de usuários que contenha:
-*/
-//1.1 Type Alias para uma pessoa (TPerson) com as propriedades id, name, email, password e role;
-type TPerson = {
-    id: string,
-    name: string,
-    email: string,
-    password: string,
-    role: RoleUser
-}
-
-
-
-//1.2 Type Aliases para 2 contas (AdminAccount, NormalAccount) com as propriedades nickname e permission;
-
-type TAdminAccount = {
-    nickName: string,
-    permission: true
-}
-
-type TNormalAccount = {
-    nickName: string,
-    permission: false //dessa forma selamos a informação, poderia ser boolean porém ele aceitaria true ou false
-}
-
-//1.3 Crie exemplos de usuários Admin e Normal;
-
-const userAdmin: TAdminAccount = {
-    nickName: "userAdmin",
-    permission: true
-}
-
-const userNormal: TNormalAccount = {
-    nickName: "userNormal",
-    permission: false
-}
-
-/* PRÁTICA GUIADA - Parte 2
-Vamos continuar nosso sistema de cadastro de usuários criando:
-*/
-//2.1 Enum com valores ADMIN e NORMAL e atribua a propriedade role do Tperson;
-
-enum RoleUser { //valores pré-definidos (não mudam)
-    Admin = "Admin",
-    Normal = "Normal"
-}
-
-const person: TPerson = {
+const personAdmin01: TPersonAdmin = {
     id: "001",
-    name: "Flávia",
-    email: "flavia@email",
-    password: "123",
-    role: RoleUser.Admin
-}
-
-//2.2 Tipo Intersection unindo: pessoa(TPerson) + permissão (Role);
-
-type TPersonAdmin = TPerson & TAdminAccount
-type TPersonNormal = TPerson & TNormalAccount
-
-const personAdmin: TPersonAdmin = {
-    id: "002",
     name: "Flávia F.",
-    email: "flavia2@email",
+    email: "flavia1@email",
     password: "1234",
-    role: RoleUser.Admin,
-    nickName: "userAdmin",
-    permission: true
+    account: "userAdmin",
+    permission: USER_ROLES.ADMIN
 }
 
-const personNormal: TPersonNormal = {
-    id: "003",
+const personAdmin02: TPersonAdmin = {
+  id: "002",
+  name: "Flávia F.2",
+  email: "flavia2@email",
+  password: "12343",
+  account: "userAdmin",
+  permission: USER_ROLES.ADMIN
+}
+
+const personAdmin03: TPersonAdmin = {
+  id: "003",
+  name: "Flávia F.3",
+  email: "flavia3@email",
+  password: "12343",
+  account: "userAdmin",
+  permission: USER_ROLES.ADMIN
+}
+
+const personNormal01: TPersonNormal = {
+    id: "001",
     name: "Flávia F. S.",
     email: "flavia3@email",
     password: "12345",
-    role: RoleUser.Normal,
-    nickName: "userNormal",
-    permission: false
+    account: "userNormal",
+    permission: USER_ROLES.NORMAL
 }
 
-//2.3 Um array de usuários que permite guardar apenas usuários do tipo Person + Role;
-//formas de tipar arrays com 02 tipos de types diferentes
+const personNormal02: TPersonNormal = {
+  id: "002",
+  name: "Flávia F. S.",
+  email: "flavia3@email",
+  password: "12345",
+  account: "userNormal",
+  permission: USER_ROLES.NORMAL
+}
 
-const usersPersonRole: Array<TPersonAdmin | TPersonNormal> = [personAdmin, personNormal]
+const personNormal03: TPersonNormal = {
+  id: "003",
+  name: "Flávia F. S.",
+  email: "flavia3@email",
+  password: "12345",
+  account: "userNormal",
+  permission: USER_ROLES.NORMAL
+}
 
-const usersPersonRole2: (TPersonAdmin | TPersonNormal)[] = [personAdmin, personNormal]
+const usersPersonRole: Array<TPersonAdmin | TPersonNormal> = [personAdmin01, personNormal01]
+const usersPersonRole2: (TPersonAdmin | TPersonNormal)[] = [personAdmin01, personNormal01]
 
-//console.log(usersPersonRole)
+const usersAdmin: TPersonAdmin[] = []
+usersAdmin.push(personAdmin01)
+usersAdmin.push(personAdmin02)
+usersAdmin.push(personAdmin03)
+
+const usersNormal: TPersonNormal[] = []
+usersNormal.push(personNormal01)
+usersNormal.push(personNormal02)
+usersNormal.push(personNormal03)
+
+console.table(usersAdmin)
+console.table(usersNormal)
