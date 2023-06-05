@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { courses } from './database'
+import { TCourse } from './types'
 
 const app = express()
 
@@ -20,3 +21,37 @@ app.get('/ping', (req: Request, res: Response) => {
 app.get("/courses", (req: Request, res: Response) => {
     res.status(200).send(courses)
 });
+
+//pegar por name (query params)
+app.get("/courses/search", (req: Request, res: Response) => {
+    //pegando params
+
+    const q = req.query.q as string
+
+    const result = courses.filter(course => {
+       return course.name.toLowerCase().includes(q.toLowerCase())
+    })
+
+       res.status(200).send(result)
+})
+
+//post criando um novo curso
+app.post("/courses", (req: Request, res: Response) => {
+
+    const id = req.body.id
+    const name = req.body.name
+    const lessons = req.body.lessons
+    const stack = req.body.stack
+
+    const newCourse: TCourse = {
+        id,
+        name,
+        lessons,
+        stack
+    }
+
+    courses.push(newCourse)
+
+    res.status(201).send("Curso registrado com sucesso")
+
+})
