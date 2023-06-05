@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { courses, students } from './database'
-import { TCourse, TStudent } from './types'
+import { COURSE_STACK, TCourse, TStudent } from './types'
 
 const app = express()
 
@@ -38,10 +38,10 @@ app.get("/courses/search", (req: Request, res: Response) => {
 //post criando um novo curso
 app.post("/courses", (req: Request, res: Response) => {
 
-    const id = req.body.id
-    const name = req.body.name
-    const lessons = req.body.lessons
-    const stack = req.body.stack
+    const id = req.body.id as string
+    const name = req.body.name as string
+    const lessons = req.body.lessons as number
+    const stack = req.body.stack as COURSE_STACK
 
     const newCourse: TCourse = {
         id,
@@ -71,9 +71,9 @@ app.get("/students/search", (req: Request, res: Response) => {
 })
 
 app.post("/students", (req: Request, res: Response) => {
-    const name = req.body.name
-    const id = req.body.id
-    const age = req.body.age
+    const name = req.body.name as string
+    const id = req.body.id as string
+    const age = req.body.age as number
 
     const newStudent: TStudent = {
         id,
