@@ -3,45 +3,48 @@ import cors from 'cors'
 import { courses, students } from './database'
 import { COURSE_STACK, TCourse, TStudent } from './types'
 
+//criação do servidor express
 const app = express()
 
+//configura a saida com o formato JSON
 app.use(express.json())
+
+//habilita o cors no servidor
 app.use(cors())
 
-//aponta para a porta 3003 para rodar o servidor
+//vai startar nosso servidor e coloca ele para escutar a porta 3003
 app.listen(3003, () => {
     console.log("Servidor rodando na porta 3003")
 })
 
+//ping
 app.get('/ping', (req: Request, res: Response) => {
     res.send('Pong!')
 })
 
-//pegar todos os cursos
+//getAllCourses
 app.get("/courses", (req: Request, res: Response) => {
     res.status(200).send(courses)
-});
-
-//pegar por name (query params)
-app.get("/courses/search", (req: Request, res: Response) => {
-    //pegando params
-
-    const q = req.query.q as string
-
-    const result = courses.filter(course => {
-       return course.name.toLowerCase().includes(q.toLowerCase())
-    })
-
-       res.status(200).send(result)
 })
 
-//post criando um novo curso
-app.post("/courses", (req: Request, res: Response) => {
+//getSearchCoursesByName
+app.get("/courses/search", (req: Request, res: Response) => {
+    const name = req.query.name
+    const result = courses.filter(course => {
+        return course.name.toLowerCase().includes(name.toString().toLowerCase())
+    })
 
-    const id = req.body.id as string
-    const name = req.body.name as string
-    const lessons = req.body.lessons as number
-    const stack = req.body.stack as COURSE_STACK
+    res.status(200).send(result)
+})
+
+//createNewCourse
+app.post("/courses", (req: Request, res: Response) => {
+    const {id, name, lessons, stack} = req.body
+    
+//fazendo validação do enum para STACK
+    if (stack.toLowerCase() !== COURSE_STACK.BACK.toLowerCase() && stack.toLowerCase() !== COURSE_STACK.FRONT.toLowerCase()) {
+        res.status(400).send("Stack Inválida!")
+    }
 
     const newCourse: TCourse = {
         id,
@@ -49,38 +52,58 @@ app.post("/courses", (req: Request, res: Response) => {
         lessons,
         stack
     }
-
     courses.push(newCourse)
 
-    res.status(201).send("Curso registrado com sucesso")
+//ordenando pelo id, logo após o push
+    courses.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id) {
+            return 1
+        } else {
+            return 0
+        }
+    })
 
+    res.status(201).send("Curso Registrado Com Sucesso!")
 })
 
+//getAllStudents
 app.get("/students", (req: Request, res: Response) => {
     res.status(200).send(students)
 })
 
+//getStudentByName
 app.get("/students/search", (req: Request, res: Response) => {
-    const q = req.query.q 
+    const name = req.query.name
 
     const result = students.filter(student => {
-        return student.name.toLowerCase().includes(q.toString().toLowerCase())
+        return student.name.toLowerCase().includes(name.toString().toLowerCase())
     })
-
+    
     res.status(200).send(result)
 })
 
+//createStudent
 app.post("/students", (req: Request, res: Response) => {
-    const name = req.body.name as string
-    const id = req.body.id as string
-    const age = req.body.age as number
-
+    const { id, name, age } = req.body
+    
     const newStudent: TStudent = {
         id,
         name,
         age
     }
-
     students.push(newStudent)
-    res.status(201).send("Estudante Registrado com Sucesso!")
+
+    students.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+
+    res.status(201).send("Estudante Cadastrado com Sucesso!")
 })
