@@ -1,0 +1,5 @@
+###Teste API
+GET http://localhost:3003/
+
+###Get all courses
+GET http://localhost:3003/courses
