@@ -57,3 +57,14 @@ app.post("/pets", (req: Request, res: Response) => {
 
     res.status(201).send("Cadastro de Pet Realizado com Sucesso!")
 })
+
+//searchPetById
+//colocar sempre endpoints que se utilizam de configurações de path params no final do código
+//para não conflitar com os endpoints que se utilizam de query params
+app.get("/pets/:id", (req: Request, res: Response) => {
+    const id = req.params.id
+
+    const result: TPet = pets.find(pet => pet.id === id)
+
+    res.status(200).send(result)
+})
