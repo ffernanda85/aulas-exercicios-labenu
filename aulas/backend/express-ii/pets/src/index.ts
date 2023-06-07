@@ -1,7 +1,7 @@
 import express, { Response, Request } from 'express';
 import cors from 'cors';
 import { pets } from './database';
-import { TPet } from './types';
+import { PET_SIZE, TPet } from './types';
 
 //criação do servidor express
 const app = express();
@@ -67,4 +67,43 @@ app.get("/pets/:id", (req: Request, res: Response) => {
     const result: TPet = pets.find(pet => pet.id === id)
 
     res.status(200).send(result)
+})
+
+//putPet
+app.put("/pets/:id", (req: Request, res: Response) => {
+    const id = req.params.id
+
+    const newId = req.body.id as string | undefined
+    const newName = req.body.name as string | undefined
+    const newAge = req.body.age as number | undefined
+    const newSize = req.body.size as PET_SIZE | undefined
+
+    const pet = pets.find(pet => pet.id === id)
+
+    if (pet) {
+        pet.id = newId || pet.id
+        pet.name = newName || pet.name
+        pet.age = newAge <= 0 && pet.age || isNaN(newAge) && pet.age || newAge
+        pet.size = newSize || pet.size
+    }
+    
+    res.status(200).send("Atualização realizada com sucesso!")
+})
+
+//delPetById
+app.delete("/pets/:id", (req: Request, res: Response) => {
+    const id = req.params.id
+
+    //descobrindo indice do item a ser deletado
+    const petIndex = pets.findIndex(pet => pet.id === id)
+
+    //verificando se petIndex existe
+    if (petIndex >= 0) {
+        //deletando o item referente àquela posição atraves do splice
+        pets.splice(petIndex, 1)
+        res.status(200).send("Item removido com sucesso!")
+    } else {
+        res.status(400).send("Pet não encontrado!")
+    }
+
 })
