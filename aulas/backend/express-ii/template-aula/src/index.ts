@@ -54,16 +54,46 @@ app.put("/accounts/:id", (req: Request, res: Response) => {
         return res.status(400).send("Account not found!")
     }
 
+    if (type && type !== ACCOUNT_TYPE.BLACK &&
+        type !== ACCOUNT_TYPE.BRONZE &&
+        type !== ACCOUNT_TYPE.GOLD &&
+        type !== ACCOUNT_TYPE.PLATINUM &&
+        type !== ACCOUNT_TYPE.SILVER) {
+        
+        return res.status(400).send("Invalid value of type!")
+    }
     
-
     findAccount.id = newId || findAccount.id
     findAccount.ownerName = ownerName || findAccount.ownerName
-    findAccount.balance = balance || findAccount.balance
-    findAccount.type = type !== ACCOUNT_TYPE.BLACK &&
-                       type !== ACCOUNT_TYPE.BRONZE &&
-                       type !== ACCOUNT_TYPE.GOLD &&
-                       type !== ACCOUNT_TYPE.PLATINUM &&
-                       type !== ACCOUNT_TYPE.SILVER ? findAccount.type : type
+    findAccount.balance = balance >= 0 ? balance : findAccount.balance
+    findAccount.type = type || findAccount.type 
 
     res.status(200).send("Atualização realizada com sucesso!")
+})
+
+app.post("/accounts", (req: Request, res: Response) => {
+    const { id, ownerName, balance, type } = req.body
+    
+    const newAccount: TAccount = {
+        id,
+        ownerName,
+        balance,
+        type
+    }
+
+    if (!newAccount) {
+        return res.status(400).send("Informações inválidas!")
+    }
+
+    accounts.push(newAccount)
+    accounts.sort((a, b) => {
+        if (a.id < b.id) {
+            return -1
+        } else if (a.id > b.id) {
+            return 1
+        } else {
+            return 0
+        }
+    })
+    res.status(201).send("cadastro realizado com sucesso!")
 })

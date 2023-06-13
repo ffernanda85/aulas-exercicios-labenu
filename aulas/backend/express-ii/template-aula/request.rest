@@ -1,7 +1,18 @@
 ### Testando Ping
 GET http://localhost:3003/ping
 
-### Testando Get Accounts
+### Testando Create Account 
+POST http://localhost:3003/accounts
+content-type: application/json
+
+{
+    "id":"a000",
+    "ownerName": "alo alo",
+    "balance": 0,
+    "type": "Ouro"
+}
+
+### Testando Get All Accounts
 GET http://localhost:3003/accounts
 
 ### Testando Get search Accounts by id
@@ -19,3 +30,4 @@ content-type: application/json
     "balance": 50,
     "type": "ACCOUNT_TYPE.BLACK"
 }
+
