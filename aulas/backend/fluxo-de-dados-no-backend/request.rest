@@ -1,0 +1,32 @@
+### Testando Ping
+GET http://localhost:3003/ping
+
+### Testando Create Account 
+POST http://localhost:3003/accounts
+content-type: application/json
+
+{
+    "id":"a022",
+    "balance": 10,
+    "type": "Ouro"
+}
+
+### Testando Get All Accounts
+GET http://localhost:3003/accounts
+
+### Testando Get search Accounts by id
+GET http://localhost:3003/accounts/a0021
+
+### Testando Delete Account By Id
+DELETE http://localhost:3003/accounts/a001
+
+### Testando update Account By Id
+PUT http://localhost:3003/accounts/a001
+content-type: application/json
+
+{
+    "ownerName": "abc",
+    "balance": 50,
+    "type": "ACCOUNT_TYPE.BLACK"
+}
+
