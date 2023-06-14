@@ -72,17 +72,13 @@ app.put("/accounts/:id", (req: Request, res: Response) => {
 })
 
 app.post("/accounts", (req: Request, res: Response) => {
-    const { id, ownerName, balance, type } = req.body
+    const { id, ownerName, balance, type } = req.body as TAccount
     
     const newAccount: TAccount = {
         id,
         ownerName,
         balance,
         type
-    }
-
-    if (!newAccount) {
-        return res.status(400).send("Informações inválidas!")
     }
 
     accounts.push(newAccount)

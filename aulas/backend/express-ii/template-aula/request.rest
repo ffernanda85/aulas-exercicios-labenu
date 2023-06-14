@@ -6,9 +6,8 @@ POST http://localhost:3003/accounts
 content-type: application/json
 
 {
-    "id":"a000",
-    "ownerName": "alo alo",
-    "balance": 0,
+    "id":"a022",
+    "balance": 10,
     "type": "Ouro"
 }
 
