@@ -42,7 +42,7 @@ app.get("/accounts/:id", (req: Request, res: Response) => {
         if (error instanceof Error) {//verifica se o error é uma instância da classe Error
             res.send(error.message)  //caso sim, retornamos com o error.message
         } else {
-            res.send("Erro inesperado")//caso não, retornamos com  o erro inesperado
+            res.send("Unexpected error")//caso não, retornamos com  o erro inesperado
         }
     }
 })
@@ -52,16 +52,16 @@ app.delete("/accounts/:id", (req: Request, res: Response) => {
         
         const id = req.params.id
 
-        if (id.charAt(0) !== "a") {//verificando se o primeiro caracter do id recebido é "a"
+        if (id && id.charAt(0) !== "a") {//verificando se o primeiro caracter do id recebido é "a"
             res.statusCode = 400
-            throw new Error("'id' inválido. Deve iniciar com a letra 'a'!");
+            throw new Error("Invalid 'id'. Must start with the letter 'a'!");
         }
 
         const findIndexAccount = accounts.findIndex(account => account.id === id)
     
         if (findIndexAccount >= 0) {//O valor zero é considerado como false, por isso precisamos tratar o findIndex como >= 0
             accounts.splice(findIndexAccount, 1)
-            return res.status(200).send("Account deletado com sucesso!")
+            return res.status(200).send("Account deleted!")
         } else {
             res.statusCode = 404
             throw new Error("Account not found");
@@ -77,7 +77,7 @@ app.delete("/accounts/:id", (req: Request, res: Response) => {
         if (error instanceof Error) {
             res.send(error.message)
         } else {
-            res.send("Erro inesperado!")
+            res.send("Unexpected error")
         }
     }
 })
@@ -87,43 +87,62 @@ app.put("/accounts/:id", (req: Request, res: Response) => {
         
         const id = req.params.id
 
-        const { id: newId, ownerName, balance, type } = req.body as TAccount | undefined
+        const { id: newId, ownerName, balance, type } = req.body
 
-        if (newId && (typeof newId !== "string" || newId[0] !== "a")) {
-            res.status(400)
-            throw new Error("'Id' inválido!");
-        }
-
-        if (ownerName && ownerName.length < 2) {
-            res.status(400)
-            throw new Error("'OwnerName inválido!");
-        }
-    
-        if (balance && (typeof balance !== "number" || balance < 0)) {
-            res.statusCode = 400
-            throw new Error("Insira um balance válido!");
+        //verificando se o id foi enviado pelo body
+        if (newId !== undefined) {
+            //verificando se o newId é uma string e se começa com "a"
+            if (typeof newId !== "string" || newId[0] !== "a") {
+                res.status(400)
+                throw new Error("Invalid Id!");
+            }
         }
         
-        if (
-            type && type !== ACCOUNT_TYPE.BLACK &&
-            type !== ACCOUNT_TYPE.GOLD &&
-            type !== ACCOUNT_TYPE.PLATINUM
-        ) {
-            
-            res.statusCode = 400
-            throw new Error("Invalid value of type!");
+        //verificando se o ownerName foi enviado
+        if (ownerName !== undefined) {
+            //verificando se o ownerName é um string ou maior que dois caracteres
+            if (typeof ownerName !== "string" || ownerName.length < 2) {
+                res.status(400)
+                throw new Error("Invalid OwnerName!");
+            }
+        }
+ 
+        //verificando se o balance está sendo recebido
+        if (balance !== undefined) {
+            //verificando se balance é do tipo number
+            if (typeof balance !== "number") {
+                res.status(422)
+                throw new Error("the balance value must be numeric");
+            }
+            //verificando se o balance é menor que zero
+            if (balance < 0) {
+                res.status(400)
+                throw new Error("the balance value must be equal to or greater than zero");
+            }
+        } 
+        
+        //verificando se o type foi recebido
+        if (type !== undefined) {
+            if (
+                type !== ACCOUNT_TYPE.BLACK &&
+                type !== ACCOUNT_TYPE.GOLD &&
+                type !== ACCOUNT_TYPE.PLATINUM
+            ) {
+                res.statusCode = 400
+                throw new Error("Invalid value of type!");
+            }
         }
 
         const findAccount = accounts.find(account => account.id === id)
     
         if (!findAccount) {
-            res.statusCode = 400
+            res.statusCode = 404
             throw new Error("Account not found!");
         }
                     
         findAccount.id = newId || findAccount.id
         findAccount.ownerName = ownerName || findAccount.ownerName
-        findAccount.balance = balance || findAccount.balance
+        findAccount.balance = balance >= 0 ? balance : findAccount.balance
         findAccount.type = type || findAccount.type 
 
         accounts.sort((a, b) => {
@@ -135,8 +154,7 @@ app.put("/accounts/:id", (req: Request, res: Response) => {
                 return 0
             }
         })
-    
-        res.status(200).send("Atualização realizada com sucesso!")
+        res.status(200).send("Update performed successfully!")
 
     } catch (error) {
         console.log(error)
@@ -148,10 +166,9 @@ app.put("/accounts/:id", (req: Request, res: Response) => {
         if (error instanceof Error) {
             res.send(error.message)
         } else {
-            res.send("Erro inesperado")
+            res.send("Unexpected error")
         }
     }
-    
 })
 
 app.post("/accounts", (req: Request, res: Response) => {
@@ -174,5 +191,5 @@ app.post("/accounts", (req: Request, res: Response) => {
             return 0
         }
     })
-    res.status(201).send("cadastro realizado com sucesso!")
+    res.status(201).send("Registration done successfully!")
 })
