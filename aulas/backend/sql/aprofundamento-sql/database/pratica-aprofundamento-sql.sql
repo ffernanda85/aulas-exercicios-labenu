@@ -43,3 +43,36 @@ VALUES
 
 -- Fetch all pokemons
 SELECT * FROM pokemons;
+
+-- Fetch all pokemons with speed > 60
+SELECT * FROM pokemons
+WHERE speed > 60;
+
+-- Fetch all pokemons with attack e special_attack >= 60
+SELECT * FROM pokemons
+WHERE attack >= 60
+AND   special_attack >= 60;
+
+-- Fetch all pokemons with text "saur" at the end of the name
+SELECT * FROM pokemons
+WHERE name LIKE '%saur';
+
+-- hp column simple average 
+SELECT AVG(hp) as averageHp FROM pokemons;
+
+-- counting all rows in the table
+SELECT COUNT(*) as countPokemons FROM pokemons;
+
+-- ordering from descending defense column
+SELECT * FROM pokemons
+ORDER BY defense DESC;
+
+-- grouping by type
+SELECT COUNT(*), type
+FROM pokemons
+GROUP BY type;
+
+-- limiting pagination
+SELECT * FROM pokemons
+LIMIT 3
+OFFSET 4;
