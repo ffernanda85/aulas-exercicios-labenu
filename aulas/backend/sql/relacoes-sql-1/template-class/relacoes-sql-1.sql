@@ -73,3 +73,36 @@ SELECT
 FROM phones
 INNER JOIN users
 ON phones.user_id = users.id;
+
+
+-- ================== EXERCICIO DE FIXAÇÃO ==================
+CREATE TABLE posts (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    title TEXT NOT NULL,
+    text TEXT NOT NULL,
+    user_id TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+DROP TABLE posts;
+
+INSERT INTO posts(id, title, text, user_id)
+VALUES
+    ("p001", "Post 001", "Este é um post", "u001"),
+    ("p002", "Post 002", "Este é um post", "u001"),
+    ("p003", "Post 003", "Este é um post", "u001"),
+    ("p004", "Post 002", "Este é um post", "u002");
+
+SELECT * FROM posts
+INNER JOIN users
+ON posts.user_id = users.id;
+
+SELECT
+    posts.id AS postId,
+    title,
+    text,
+    posts.user_id AS userId,
+    name
+FROM posts
+INNER JOIN users
+ON posts.user_id = users.id;
