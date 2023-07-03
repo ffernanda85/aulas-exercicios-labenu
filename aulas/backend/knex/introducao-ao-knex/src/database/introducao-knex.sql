@@ -1,11 +1,12 @@
+-- Active: 1687367064663@@127.0.0.1@3306
 
 -- Tabelas já foram criadas
-CREATE TABLE bands (
+CREATE TABLE IF NOT EXISTS bands (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL
 );
 
-CREATE TABLE songs (
+CREATE TABLE IF NOT EXISTS songs (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
     band_id TEXT NOT NULL,
