@@ -33,9 +33,7 @@ app.get("/ping", async (req: Request, res: Response) => {
 app.get("/bands", async (req: Request, res: Response) => {
     try {
         
-        const result = await db.raw(`
-            SELECT * FROM bands;
-            `)
+        const result = await db(`bands`)
         res.status(200).send(result)
 
     } catch (error) {
