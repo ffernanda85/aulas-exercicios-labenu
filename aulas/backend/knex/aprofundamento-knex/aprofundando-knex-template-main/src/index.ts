@@ -72,11 +72,12 @@ app.post("/bands", async (req: Request, res: Response) => {
             throw new Error("'id' e 'name' devem possuir no mínimo 1 caractere")
         }
 
-        await db.raw(`
-            INSERT INTO bands (id, name)
-            VALUES ("${id}", "${name}");
-        `)
+        const newBand = {
+            id,
+            name
+        }
 
+        await db(`bands`).insert(newBand)
         res.status(200).send("Banda cadastrada com sucesso")
     } catch (error) {
         console.log(error)
@@ -127,20 +128,16 @@ app.put("/bands/:id", async (req: Request, res: Response) => {
             }
         }
 
-        const [ band ] = await db.raw(`
-            SELECT * FROM bands
-            WHERE id = "${idToEdit}";
-        `) // desestruturamos para encontrar o primeiro item do array
+        const [band] = await db(`bands`)// desestruturamos para encontrar o primeiro item do array
+        .where({ id: idToEdit })
 
         if (band) {
-            await db.raw(`
-                UPDATE bands
-                SET
-                    id = "${newId || band.id}",
-                    name = "${newName || band.name}"
-                WHERE
-                    id = "${idToEdit}";
-            `)
+            const updateBand = {
+                id: newId || band.id,
+                name: newName || band.name
+            }
+            await db(`bands`).update(updateBand).where({ id: idToEdit })
+ 
         } else {
             res.status(404)
             throw new Error("'id' não encontrada")
