@@ -11,6 +11,7 @@ app.listen(3003, () => {
     console.log(`Servidor rodando na porta ${3003}`)
 })
 
+// ============= GET PONG ========================
 app.get("/ping", async (req: Request, res: Response) => {
     try {
         res.status(200).send({ message: "Pong!" })
@@ -29,11 +30,10 @@ app.get("/ping", async (req: Request, res: Response) => {
     }
 })
 
+// ================= GET SELECT BANDS ===================
 app.get("/bands", async (req: Request, res: Response) => {
     try {
-        const result = await db.raw(`
-            SELECT * FROM bands;
-        `)
+        const result = await db(`bands`)
 
         res.status(200).send(result)
     } catch (error) {
@@ -51,6 +51,7 @@ app.get("/bands", async (req: Request, res: Response) => {
     }
 })
 
+// ================= CREATE BANDS ======================
 app.post("/bands", async (req: Request, res: Response) => {
     try {
         const id = req.body.id
@@ -92,6 +93,7 @@ app.post("/bands", async (req: Request, res: Response) => {
     }
 })
 
+// ================= UPDATE SONG ======================
 app.put("/bands/:id", async (req: Request, res: Response) => {
     try {
         const idToEdit = req.params.id
@@ -160,6 +162,7 @@ app.put("/bands/:id", async (req: Request, res: Response) => {
     }
 })
 
+// =================== CREATE SONG =====================
 app.post("/songs", async (req: Request, res: Response) => {
     try {
         const id = req.body.id
@@ -207,6 +210,7 @@ app.post("/songs", async (req: Request, res: Response) => {
     }
 })
 
+// ===================== UPDATE SONG ===================
 app.put("/songs/:id", async (req: Request, res: Response) => {
     try {
         const idToEdit = req.params.id
@@ -290,6 +294,7 @@ app.put("/songs/:id", async (req: Request, res: Response) => {
     }
 })
 
+// ===================== SELECT SONGS JOIN ==================
 app.get("/songs", async (req: Request, res: Response) => {
   try {
       const result = await db.raw(`
