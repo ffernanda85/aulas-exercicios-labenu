@@ -94,7 +94,7 @@ app.post("/bands", async (req: Request, res: Response) => {
     }
 })
 
-// ================= UPDATE SONG ======================
+// ================= UPDATE BAND ======================
 app.put("/bands/:id", async (req: Request, res: Response) => {
     try {
         const idToEdit = req.params.id
@@ -159,6 +159,39 @@ app.put("/bands/:id", async (req: Request, res: Response) => {
     }
 })
 
+// =================== DELETE BAND ====================
+app.delete("/bands/:id", async (req: Request, res: Response) => {
+    try {
+        
+        const idToDelete = req.params.id
+
+        const [band] = await db('bands').where({ id: idToDelete })
+        
+        if (!band) {
+            res.status(404)
+            throw new Error('"Id" da banda não encontrado!')
+        } 
+
+        await db('bands').del().where({ id: idToDelete })
+        res.status(200).send('Banda Deletada!')
+
+    } catch (error) {
+        console.log(error)
+
+        if (req.statusCode === 200) {
+            res.status(500)
+        }
+
+        if (error instanceof Error) {
+            res.send(error.message)
+        } else {
+            res.send("Erro inesperado")
+        }
+    }
+
+
+
+})
 // =================== CREATE SONG =====================
 app.post("/songs", async (req: Request, res: Response) => {
     try {
