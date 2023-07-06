@@ -192,13 +192,12 @@ app.delete("/bands/:id", async (req: Request, res: Response) => {
 
 
 })
+
 // =================== CREATE SONG =====================
 app.post("/songs", async (req: Request, res: Response) => {
     try {
-        const id = req.body.id
-        const name = req.body.name
-        const bandId = req.body.bandId
-
+        const { id, name, band_Id } = req.body
+        
         if (typeof id !== "string") {
             res.status(400)
             throw new Error("'id' inválido, deve ser string")
@@ -209,22 +208,24 @@ app.post("/songs", async (req: Request, res: Response) => {
             throw new Error("'name' inválido, deve ser string")
         }
 
-        if (typeof bandId !== "string") {
+        if (typeof band_Id !== "string") {
             res.status(400)
             throw new Error("'bandId' inválido, deve ser string")
         }
 
-        if (id.length < 1 || name.length < 1 || bandId.length < 1) {
+        if (id.length < 1 || name.length < 1 || band_Id.length < 1) {
             res.status(400)
             throw new Error("'id', 'name' e 'bandId' devem possuir no mínimo 1 caractere")
         }
 
-        await db.raw(`
-            INSERT INTO songs (id, name, band_id)
-            VALUES ("${id}", "${name}", "${bandId}");
-        `)
-
+        const newSong = {
+            id,
+            name,
+            band_Id
+        }
+        await db('songs').insert(newSong)
         res.status(200).send("Música cadastrada com sucesso")
+
     } catch (error) {
         console.log(error)
 
@@ -247,7 +248,7 @@ app.put("/songs/:id", async (req: Request, res: Response) => {
 
         const newId = req.body.id
         const newName = req.body.name
-        const newBandId = req.body.bandId
+        const newBandId = req.body.band_Id
 
         if (newId !== undefined) {
 
@@ -288,21 +289,16 @@ app.put("/songs/:id", async (req: Request, res: Response) => {
             }
         }
 
-        const [ song ] = await db.raw(`
-            SELECT * FROM songs
-            WHERE id = "${idToEdit}";
-        `) // desestruturamos para encontrar o primeiro item do array
+        const [ song ] = await db(`songs`).where({id: idToEdit}) // desestruturamos para encontrar o primeiro item do array
 
         if (song) {
-            await db.raw(`
-                UPDATE songs
-                SET
-                    id = "${newId || song.id}",
-                    name = "${newName || song.name}",
-                    band_id = "${newBandId || song.band_id}"
-                WHERE
-                    id = "${idToEdit}";
-            `)
+            const updateSong = {
+                id: newId || song.id,
+                name: newName || song.name,
+                band_Id: newBandId || song.band_Id
+            }
+            await db(`songs`).update(updateSong).where({id: idToEdit})
+
         } else {
             res.status(404)
             throw new Error("'id' não encontrada")
@@ -327,20 +323,22 @@ app.put("/songs/:id", async (req: Request, res: Response) => {
 // ===================== SELECT SONGS JOIN ==================
 app.get("/songs", async (req: Request, res: Response) => {
   try {
-      const result = await db.raw(`
-        SELECT
-          songs.id AS id,
-          songs.name AS name,
-          bands.id AS bandId,
-          bands.name AS bandName
-        FROM songs
-        INNER JOIN bands
-        ON songs.band_id = bands.id;
-      `)
+      const result = await db('songs')
+        .select(
+            "songs.id AS songId",
+            "songs.name AS songName",
+            "bands.id AS band_Id",
+            "bands.name AS bandName")
+          .innerJoin(
+              "bands",
+              "songs.band_Id",
+              "=",
+              "bands.id"
+        )
       // referencie o notion do material assíncrono "Mais práticas com query builder"
       // (Seções "Apelidando com ALIAS" e "Junções com JOIN")
-
       res.status(200).send(result)
+      
   } catch (error) {
       console.log(error)
 
