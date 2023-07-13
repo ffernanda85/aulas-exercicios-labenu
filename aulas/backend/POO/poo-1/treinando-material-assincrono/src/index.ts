@@ -14,4 +14,7 @@ const user2 = new User(
     "iza123"
 )
 
+user1.setPassword("123")
+user2.setPassword("123")
+
 console.table([user1, user2])
