@@ -45,7 +45,7 @@ app.get("/users", async (req: Request, res: Response) => {
             usersDB = result
         }
 
-        const result = usersDB.map(user => {
+        const result: User[] = usersDB.map(user => {
             return new User(
                 user.id,
                 user.name,
@@ -104,14 +104,30 @@ app.post("/users", async (req: Request, res: Response) => {
             throw new Error("'id' já existe")
         }
 
-        const newUser: TUserDBPost = {
+        /* const newUser: TUserDBPost = {
             id,
             name,
             email,
             password
+        } */
+
+        const newUser = new User(
+            id,
+            name,
+            email,
+            password,
+            new Date().toISOString()/* Retornando a data atual como string (yyy-mm-dd-hh:mm:ss)*/
+        )
+
+        const newUserDB: TUserDB = {
+            id: newUser.getId(),
+            name: newUser.getName(),
+            email: newUser.getEmail(),
+            password: newUser.getPassword(),
+            created_at: newUser.getCreatedAt()
         }
 
-        await db("users").insert(newUser)
+        await db("users").insert(newUserDB)
         const [ userDB ]: TUserDB[] = await db("users").where({ id })
 
         res.status(201).send(userDB)

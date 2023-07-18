@@ -25,14 +25,17 @@ export class User {
     }
     
     /* MÉTODOS SETTERS */
-    public setName(name : string): void {
-        this.name = name;
+    public setName(newName : string): void {
+        this.name = newName;
     }
-    public setEmail(email : string): void {
-        this.email = email;
+    public setEmail(newEmail : string): void {
+        this.email = newEmail;
     }
-    public setPassword(password : string): void {
-        this.password = password;
+    public setPassword(newPassword : string): void {
+        this.password = newPassword;
     }
 }
 
+const user1 = new User("u001", "Silvina", "sil@email", "sil123", "12/12/1212 12:12:12")
+user1.setName("Flávia")
+console.log(user1.getName());
