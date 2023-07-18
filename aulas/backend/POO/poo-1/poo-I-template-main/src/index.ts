@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { TAccountDB, TAccountDBPost, TUserDB, TUserDBPost } from './types'
 import { db } from './database/knex'
+import { User } from './models/User'
 
 const app = express()
 
@@ -44,7 +45,19 @@ app.get("/users", async (req: Request, res: Response) => {
             usersDB = result
         }
 
-        res.status(200).send(usersDB)
+        const result = usersDB.map(user => {
+            return new User(
+                user.id,
+                user.name,
+                user.email,
+                user.password,
+                user.created_at
+            )
+        })
+
+        console.log(result);
+        
+        res.status(200).send(result)
     } catch (error) {
         console.log(error)
 
