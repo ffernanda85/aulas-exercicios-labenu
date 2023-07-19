@@ -6,7 +6,6 @@ export class User {
         private password: string,
         private createdAt: string
     ) {}
-    
     /* MÉTODOS GETTERS */
     public getId() : string {
         return this.id
@@ -23,7 +22,6 @@ export class User {
     public getCreatedAt() : string {
         return this.createdAt
     }
-    
     /* MÉTODOS SETTERS */
     public setName(newName : string): void {
         this.name = newName;
@@ -35,7 +33,3 @@ export class User {
         this.password = newPassword;
     }
 }
-
-const user1 = new User("u001", "Silvina", "sil@email", "sil123", "12/12/1212 12:12:12")
-user1.setName("Flávia")
-console.log(user1.getName());
