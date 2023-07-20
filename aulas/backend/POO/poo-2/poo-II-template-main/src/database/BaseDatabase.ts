@@ -18,7 +18,7 @@ export abstract class BaseDatabase {
     })
 }
 
-export const db = knex({
+/* export const db = knex({
     client: "sqlite3",
     connection: {
         filename: "./src/database/poo.db",
@@ -31,4 +31,4 @@ export const db = knex({
             conn.run("PRAGMA foreign_keys = ON", cb)
         }
     }
-})
+}) */

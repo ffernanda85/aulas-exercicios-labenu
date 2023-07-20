@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { TAccountDB, TAccountDBPost, TUserDB, TUserDBPost } from './types'
-import { db } from './database/BaseDatabase'
+/* import { db } from './database/BaseDatabase' */
 import { User } from './models/User'
 import { Account } from './models/Account'
 import { UserDatabase } from './database/UserDatabase'
