@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { TAccountDB, TAccountDBPost, TUserDB, TUserDBPost } from './types'
-import { db } from './database/knex'
+import { db } from './database/BaseDatabase'
 import { User } from './models/User'
 import { Account } from './models/Account'
+import { UserDatabase } from './database/UserDatabase'
+import { log } from 'console'
 
 const app = express()
 
@@ -34,27 +36,56 @@ app.get("/ping", async (req: Request, res: Response) => {
 
 app.get("/users", async (req: Request, res: Response) => {
     try {
-        const q = req.query.q
+        const q = req.query.q as string
 
-        let usersDB
-
-        if (q) {
-            const result: TUserDB[] = await db("users").where("name", "LIKE", `%${q}%`)
-            usersDB = result
-        } else {
-            const result: TUserDB[] = await db("users")
-            usersDB = result
-        }
-
-        const users: User[] = usersDB.map((userDB) => new User(
+        const userDatabase = new UserDatabase()
+        const usersDB = await userDatabase.findUsers(q)
+       
+        const result: User[] = usersDB.map((userDB) => new User(
             userDB.id,
             userDB.name,
             userDB.email,
             userDB.password,
             userDB.created_at
         ))
+       
+        res.status(200).send(result)
+    } catch (error) {
+        console.log(error)
 
-        res.status(200).send(users)
+        if (req.statusCode === 200) {
+            res.status(500)
+        }
+
+        if (error instanceof Error) {
+            res.send(error.message)
+        } else {
+            res.send("Erro inesperado")
+        }
+    }
+})
+
+app.get("/users/:id", async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id
+        const userDatabase = new UserDatabase()
+
+        const userDB = await userDatabase.findUserById(id)
+       
+        if (!userDB) {
+            res.status(404)
+            throw new Error("Usuário não encontrado");
+        }
+
+        const result: User = new User(
+            userDB.id,
+            userDB.name,
+            userDB.email,
+            userDB.password,
+            userDB.created_at
+        )
+    
+        res.status(200).send(result)
     } catch (error) {
         console.log(error)
 
@@ -109,15 +140,8 @@ app.post("/users", async (req: Request, res: Response) => {
             new Date().toISOString()
         ) // yyyy-mm-ddThh:mm:sssZ
 
-        const newUserDB: TUserDB = {
-            id: newUser.getId(),
-            name: newUser.getName(),
-            email: newUser.getEmail(),
-            password: newUser.getPassword(),
-            created_at: newUser.getCreatedAt()
-        }
-
-        await db("users").insert(newUserDB)
+        const userDatabase = new UserDatabase()
+        await userDatabase.insertUser(newUser)
 
         res.status(201).send(newUser)
     } catch (error) {
