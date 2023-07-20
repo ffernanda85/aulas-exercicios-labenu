@@ -6,6 +6,7 @@ import { User } from './models/User'
 import { Account } from './models/Account'
 import { UserDatabase } from './database/UserDatabase'
 import { log } from 'console'
+import { AccountDatabase } from './database/AccountDatabase'
 
 const app = express()
 
@@ -33,6 +34,8 @@ app.get("/ping", async (req: Request, res: Response) => {
         }
     }
 })
+
+/* ================ ENDPOINTS DE USERS ============== */
 
 app.get("/users", async (req: Request, res: Response) => {
     try {
@@ -159,9 +162,12 @@ app.post("/users", async (req: Request, res: Response) => {
     }
 })
 
+/* ================ ENDPOINTS DE ACCOUNTS ============== */
 app.get("/accounts", async (req: Request, res: Response) => {
     try {
-        const accountsDB: TAccountDB[] = await db("accounts")
+        const accountDatabase = new AccountDatabase()
+
+        const accountsDB = await accountDatabase.findAccounts()
 
         const accounts = accountsDB.map((accountDB) => new Account(
             accountDB.id,
