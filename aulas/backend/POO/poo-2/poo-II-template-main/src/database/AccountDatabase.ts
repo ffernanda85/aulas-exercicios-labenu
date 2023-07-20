@@ -25,8 +25,8 @@ export class AccountDatabase extends BaseDatabase {
         )
     }
 
-    updateBalanceById() {
-        
+    async updateBalanceById(newBalance: number, id: string): Promise<void> {
+        await BaseDatabase.connection("accounts").update({ balance: newBalance }).where({ id: id })
     }
 
 }

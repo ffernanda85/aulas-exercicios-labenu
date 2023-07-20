@@ -282,13 +282,14 @@ app.put("/accounts/:id/balance", async (req: Request, res: Response) => {
     try {
         const id = req.params.id
         const value = req.body.value
-
+        const accountDatabase = new AccountDatabase()
+        
         if (typeof value !== "number") {
             res.status(400)
             throw new Error("'value' deve ser number")
         }
 
-        const [ accountDB ]: TAccountDB[] | undefined[] = await db("accounts").where({ id })
+        const [ accountDB ]: TAccountDB[] | undefined[] = await accountDatabase.findAccountById(id)
 
         if (!accountDB) {
             res.status(404)
@@ -305,7 +306,7 @@ app.put("/accounts/:id/balance", async (req: Request, res: Response) => {
         const newBalance = account.getBalance() + value
         account.setBalance(newBalance)
 
-        await db("accounts").update({ balance: newBalance }).where({ id })
+        accountDatabase.updateBalanceById(newBalance, id)
         
         res.status(200).send(account)
     } catch (error) {
