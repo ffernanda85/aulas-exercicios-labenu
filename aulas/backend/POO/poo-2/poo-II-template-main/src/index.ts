@@ -107,6 +107,7 @@ app.get("/users/:id", async (req: Request, res: Response) => {
 app.post("/users", async (req: Request, res: Response) => {
     try {
         const { id, name, email, password } = req.body
+        const userDatabase = new UserDatabase()
 
         if (typeof id !== "string") {
             res.status(400)
@@ -128,7 +129,7 @@ app.post("/users", async (req: Request, res: Response) => {
             throw new Error("'password' deve ser string")
         }
 
-        const [ userDBExists ]: TUserDB[] | undefined[] = await db("users").where({ id })
+        const  userDBExists : TUserDB | undefined = await userDatabase.findUserById(id)
 
         if (userDBExists) {
             res.status(400)
@@ -143,7 +144,7 @@ app.post("/users", async (req: Request, res: Response) => {
             new Date().toISOString()
         ) // yyyy-mm-ddThh:mm:sssZ
 
-        const userDatabase = new UserDatabase()
+        
         await userDatabase.insertUser(newUser)
 
         res.status(201).send(newUser)
