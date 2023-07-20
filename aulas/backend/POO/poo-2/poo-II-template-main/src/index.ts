@@ -196,7 +196,9 @@ app.get("/accounts/:id/balance", async (req: Request, res: Response) => {
     try {
         const id = req.params.id
 
-        const [ accountDB ]: TAccountDB[] | undefined[] = await db("accounts").where({ id })
+        const accountDatabase = new AccountDatabase()
+
+        const [ accountDB ]: TAccountDB[] = await accountDatabase.findAccountById(id)
 
         if (!accountDB) {
             res.status(404)
@@ -211,8 +213,9 @@ app.get("/accounts/:id/balance", async (req: Request, res: Response) => {
         )
 
         const balance = account.getBalance()
-
+                
         res.status(200).send({ balance })
+
     } catch (error) {
         console.log(error)
 
@@ -227,7 +230,6 @@ app.get("/accounts/:id/balance", async (req: Request, res: Response) => {
         }
     }
 })
-
 
 app.post("/accounts", async (req: Request, res: Response) => {
     try {
@@ -257,14 +259,8 @@ app.post("/accounts", async (req: Request, res: Response) => {
             new Date().toISOString()
         )
 
-        const newAccountDB: TAccountDB = {
-            id: newAccount.getId(),
-            balance: newAccount.getBalance(),
-            owner_id: newAccount.getOwnerId(),
-            created_at: newAccount.getCreatedAt()
-        }
-
-        await db("accounts").insert(newAccountDB)
+        const accountDatabase = new AccountDatabase()
+        await accountDatabase.insertAccount(newAccount)
 
         res.status(201).send(newAccount)
     } catch (error) {
