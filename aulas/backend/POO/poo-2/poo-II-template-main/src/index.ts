@@ -234,6 +234,7 @@ app.get("/accounts/:id/balance", async (req: Request, res: Response) => {
 app.post("/accounts", async (req: Request, res: Response) => {
     try {
         const { id, ownerId } = req.body
+        const accountDatabase = new AccountDatabase()
 
         if (typeof id !== "string") {
             res.status(400)
@@ -245,7 +246,7 @@ app.post("/accounts", async (req: Request, res: Response) => {
             throw new Error("'ownerId' deve ser string")
         }
 
-        const [ accountDBExists ]: TAccountDB[] | undefined[] = await db("accounts").where({ id })
+        const [ accountDBExists ]: TAccountDB[] | undefined[] = await accountDatabase.findAccountById(id)
 
         if (accountDBExists) {
             res.status(400)
@@ -259,7 +260,7 @@ app.post("/accounts", async (req: Request, res: Response) => {
             new Date().toISOString()
         )
 
-        const accountDatabase = new AccountDatabase()
+        
         await accountDatabase.insertAccount(newAccount)
 
         res.status(201).send(newAccount)
