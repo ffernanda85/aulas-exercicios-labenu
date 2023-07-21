@@ -34,4 +34,8 @@ export class VideoDatabase extends BaseDatabase{
         }).where({id: id})
     }
 
+    async deleteVideoById(id: string): Promise<void> {
+        await BaseDatabase.connection("videos").del().where({ id : id })
+    }
+
 }

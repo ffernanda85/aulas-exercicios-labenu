@@ -182,14 +182,15 @@ app.put("/videos/:id", async (req: Request, res: Response) => {
 app.delete("/videos/:id", async (req: Request, res: Response) => {
     try {
         const idToDelete = req.params.id
-        const [idExistDB] = await db("videos").where({id : idToDelete})
+        const videoDatabase = new VideoDatabase()
 
+        const idExistDB = await videoDatabase.findVideoById(idToDelete)
         if (!idExistDB) {
             res.status(404)
             throw new Error("'ID' not found!");
         }
 
-        await db("videos").del().where({ id : idToDelete })
+        await videoDatabase.deleteVideoById(idToDelete)
         res.status(200).send(idExistDB)
     } catch (error: unknown) {
         console.log(error)
