@@ -25,4 +25,13 @@ export class VideoDatabase extends BaseDatabase{
         )
     }
 
+    async updateVideoById(id: string, videoUpdate: Video): Promise<void> {
+        await BaseDatabase.connection("videos").update({
+            id: videoUpdate.getId(),
+            title: videoUpdate.getTitle(),
+            duration: videoUpdate.getDuration(),
+            date_upload: videoUpdate.getDateUpload()
+        }).where({id: id})
+    }
+
 }

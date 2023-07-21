@@ -34,7 +34,6 @@ app.get("/ping", async (req: Request, res: Response) => {
 app.get("/videos", async (req: Request, res: Response) => {
     try {
         const videoDatabase = new VideoDatabase()
-
         const videosDB = await videoDatabase.findVideos()
 
         const videos = videosDB.map(video => 
@@ -45,7 +44,6 @@ app.get("/videos", async (req: Request, res: Response) => {
                 video.date_upload
             )
         )
-
         res.status(200).send(videos)
     } catch (error: unknown) {
         console.log(error)
@@ -132,9 +130,10 @@ app.post("/videos", async (req: Request, res: Response) => {
 app.put("/videos/:id", async (req: Request, res: Response) => {
     try {
         const idToUpdate = req.params.id 
-        const { title, duration, upload } = req.body
+        const { title, duration, date_upload } = req.body
+        const videoDatabase = new VideoDatabase()
 
-        const [idExistDB] = await db("videos").where({ id: idToUpdate })
+        const idExistDB = await videoDatabase.findVideoById(idToUpdate)
         if (!idExistDB) {
             res.status(404)
             throw new Error("'ID' não encontrado!");
@@ -158,15 +157,10 @@ app.put("/videos/:id", async (req: Request, res: Response) => {
             idToUpdate,
             title || idExistDB.title,
             duration || idExistDB.duration,
-            upload || new Date().toISOString()
+            date_upload || new Date().toISOString()
         )
         
-        await db("videos").update({
-            id: videoUpdate.getId(),
-            title: videoUpdate.getTitle(),
-            duration: videoUpdate.getDuration(),
-            upload: videoUpdate.getDateUpload()
-        }).where({id: idToUpdate})
+        await videoDatabase.updateVideoById(idToUpdate, videoUpdate)
         
         res.status(200).send(videoUpdate)
 
