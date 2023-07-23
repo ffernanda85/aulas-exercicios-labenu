@@ -2,9 +2,19 @@ import { BaseDatabase } from "./BaseDatabase";
 
 export class CharacterDatabase extends BaseDatabase{
 
-    
 
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
