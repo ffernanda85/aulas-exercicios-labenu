@@ -195,7 +195,6 @@ app.get("/accounts/:id/balance", async (req: Request, res: Response) => {
     }
 })
 
-
 app.post("/accounts", async (req: Request, res: Response) => {
     try {
         const { id, ownerId } = req.body
