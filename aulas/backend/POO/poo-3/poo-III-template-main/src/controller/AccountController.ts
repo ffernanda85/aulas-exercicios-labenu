@@ -5,7 +5,7 @@ import { AccountDB } from "../types"
 
 export class AccountController{
 
-    async updateBalanceAccount(req: Request, res: Response) {
+    async updateBalanceAccount(req: Request, res: Response): Promise<void> {
         try {
             const id = req.params.id
             const value = req.body.value
@@ -51,7 +51,7 @@ export class AccountController{
         }
     }  
     
-    async getAccounts(req: Request, res: Response) {
+    async getAccounts(req: Request, res: Response): Promise<void> {
         try {
             const accountDatabase = new AccountDatabase()
             const accountsDB: AccountDB[] = await accountDatabase.findAccounts()
@@ -79,7 +79,7 @@ export class AccountController{
         }
     }
     
-    async getBalanceAccountById(req: Request, res: Response) {
+    async getBalanceAccountById(req: Request, res: Response): Promise<void> {
         try {
             const id = req.params.id
     
@@ -116,7 +116,7 @@ export class AccountController{
         }
     }
 
-    async createAccount(req: Request, res: Response) {
+    async createAccount(req: Request, res: Response): Promise<void> {
         try {
             const { id, ownerId } = req.body
     

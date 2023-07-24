@@ -5,7 +5,7 @@ import { UserDB } from "../types"
 
 export class UserController {
 
-    async getAllUsers (req: Request, res: Response) {
+    async getAllUsers (req: Request, res: Response): Promise<void> {
         try {
             const q = req.query.q as string | undefined
     
@@ -36,7 +36,7 @@ export class UserController {
         }
     }
 
-    async createUser(req: Request, res: Response) {
+    async createUser(req: Request, res: Response): Promise<void> {
         try {
             const { id, name, email, password } = req.body
     
