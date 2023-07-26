@@ -36,7 +36,7 @@ const characterController = new CharacterController()
 
 app.get("/characters", characterController.getCharacters)
 
-
+app.post("/characters", characterController.createNewPerson)
 
 
 

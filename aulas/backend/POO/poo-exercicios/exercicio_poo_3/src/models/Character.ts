@@ -3,7 +3,7 @@ export class Character {
         private id: string,
         private name: string,
         private series_name: string,
-        private register_date: string
+        private age: number
     ) { }
     
     public getId(): string {
@@ -24,10 +24,10 @@ export class Character {
         this.series_name = newSeriesName
     }
 
-    public getRegisterDate(): string {
-       return this.register_date
+    public getAge(): number {
+       return this.age
     }
-    public setRegisterDate(newRegisterDate: string): void {
-        this.register_date = newRegisterDate
+    public setAge(newAge: number): void {
+        this.age = newAge
     }
 }

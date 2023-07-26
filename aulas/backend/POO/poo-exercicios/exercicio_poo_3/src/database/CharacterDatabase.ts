@@ -10,12 +10,18 @@ export class CharacterDatabase extends BaseDatabase{
         return charactersDB
     }
 
-    async findCharacter() {
-        
+    async findCharacterById(id: string): Promise<Character | undefined> {
+        const [characterDB]: Character[] | undefined[] = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).where({id})
+        return characterDB
     }
 
-    async insertCharacter() {
-        
+    async insertCharacter(newCharacter: Character): Promise<void> {
+        await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).insert({
+            id: newCharacter.getId(),
+            name: newCharacter.getName(),
+            series_name: newCharacter.getSeriesName(),
+            age: newCharacter.getAge()
+        })
     }
 
     async updateCharacterById() {
