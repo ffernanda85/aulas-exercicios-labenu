@@ -1,5 +1,9 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
+import { CharacterDatabase } from './database/CharacterDatabase'
+import { CharacterDB } from './types'
+import { Character } from './models/Character'
+import { CharacterController } from './controller/CharacterController'
 
 const app = express()
 
@@ -28,7 +32,9 @@ app.get("/ping", async (req: Request, res: Response) => {
     }
 })
 
+const characterController = new CharacterController()
 
+app.get("/characters", characterController.getCharacters)
 
 
 

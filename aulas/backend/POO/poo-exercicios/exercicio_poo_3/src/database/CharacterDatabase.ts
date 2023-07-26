@@ -1,7 +1,30 @@
+import { Character } from "../models/Character";
+import { CharacterDB } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class CharacterDatabase extends BaseDatabase{
+    static TABLE_CHAR = "characters"
 
+    async findCharacters(): Promise<Character[]> {
+        const charactersDB = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR)
+        return charactersDB
+    }
+
+    async findCharacter() {
+        
+    }
+
+    async insertCharacter() {
+        
+    }
+
+    async updateCharacterById() {
+        
+    }
+
+    async deleteCharacterById() {
+        
+    }
 
 }
 

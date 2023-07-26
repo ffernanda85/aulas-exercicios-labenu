@@ -3,13 +3,13 @@ CREATE TABLE characters(
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
     series_name TEXT NOT NULL,
-    register_date TEXT DEFAULT(DATE('now', 'localtime')) NOT NULL
+    age INTEGER NOT NULL
 );
 
 DROP TABLE characters;
 
-INSERT INTO characters(id, name, series_name)
+INSERT INTO characters(id, name, series_name, age)
 VALUES
-    ("char001", "Uzumaki Naruto", "Naruto"),
-    ("char002", "Sasuke", "Naruto"),
-    ("char003", "Shaw", "The Good Doctor");
+    ("char001", "Uzumaki Naruto", "Naruto", 12),
+    ("char002", "Sasuke", "Naruto", 12),
+    ("char003", "Shaw", "The Good Doctor", 22);
