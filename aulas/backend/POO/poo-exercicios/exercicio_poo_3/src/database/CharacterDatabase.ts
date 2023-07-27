@@ -11,7 +11,7 @@ export class CharacterDatabase extends BaseDatabase{
     }
 
     async findCharacterById(id: string): Promise<Character | undefined> {
-        const [characterDB]: Character[] | undefined[] = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).where({id})
+        const [characterDB]: Character[] | undefined[] = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).where(id)
         return characterDB
     }
 

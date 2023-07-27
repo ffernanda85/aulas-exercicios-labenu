@@ -38,7 +38,63 @@ app.get("/characters", characterController.getCharacters)
 
 app.post("/characters", characterController.createNewPerson)
 
+app.put("/characters/:id", async (req: Request, res: Response) => {
+    try {
+        const characterDatabase = new CharacterDatabase()
+        const idToUpdate = req.params.id
+        const {name, series_name, age} = req.body
+        
+        const characterExist = characterDatabase.findCharacterById(idToUpdate)
+        
+        if (characterExist === undefined) {
+            res.status(404)
+            throw new Error("'ID' not found");
+        }
 
+        if (name !== undefined) {
+            if (typeof name !== "string") {
+                res.status(400)
+                throw new Error("'NAME' precisa ser uma string");
+            }
+        }
+
+        if (series_name !== undefined) {
+            if (typeof series_name !== "string") {
+                res.status(400)
+                throw new Error("'NOME DA SÉRIE' precisa ser uma string");
+            }
+        }
+
+        if (age !== undefined) {
+            if (typeof age !== "number") {
+                res.status(400)
+                throw new Error("'IDADE' precisa ser um number");
+            }
+        }
+
+        const newCharacter = new Character(
+            characterExist.getId(),
+            name || characterExist.getName(),
+            series_name || characterExist.getSeriesName(),
+            age || characterExist.getAge()
+        )
+
+
+
+    } catch (error: unknown) {
+        console.log(error)
+    
+                if (req.statusCode === 200) {
+                    res.status(500)
+                }
+    
+                if (error instanceof Error) {
+                    res.send(error.message)
+                } else {
+                    res.send("Erro inesperado")
+                }
+    }
+})
 
 
 
