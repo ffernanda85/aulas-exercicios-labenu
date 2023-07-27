@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { CharacterDatabase } from "../database/CharacterDatabase";
 import { Character } from "../models/Character";
 import { CharacterDB } from "../types";
-import { log } from "console";
 
 export class CharacterController {
 
