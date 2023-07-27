@@ -40,14 +40,7 @@ app.post("/characters", characterController.createNewCharacter)
 
 app.put("/characters/:id", characterController.updateCharacterById)
 
-
-
-
-
-
-
-
-
+app.delete("/characters/:id", characterController.deleteCharacterById)
 
 
 

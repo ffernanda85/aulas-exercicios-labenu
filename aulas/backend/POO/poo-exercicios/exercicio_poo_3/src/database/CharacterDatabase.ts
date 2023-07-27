@@ -2,7 +2,7 @@ import { Character } from "../models/Character";
 import { CharacterDB } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 
-export class CharacterDatabase extends BaseDatabase{
+export class CharacterDatabase extends BaseDatabase {
     static TABLE_CHAR = "characters"
 
     async findCharacters(): Promise<CharacterDB[]> {
@@ -11,7 +11,7 @@ export class CharacterDatabase extends BaseDatabase{
     }
 
     async findCharacterById(id: string) {
-        const [characterDB]: CharacterDB[] | undefined = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).where({id})
+        const [characterDB]: CharacterDB[] | undefined = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).where({ id })
         return characterDB
     }
 
@@ -30,11 +30,11 @@ export class CharacterDatabase extends BaseDatabase{
             name: newCharacter.getName(),
             series_name: newCharacter.getSeriesName(),
             age: newCharacter.getAge()
-        }).where({id: newCharacter.getId()})
+        }).where({ id: newCharacter.getId() })
     }
 
-    async deleteCharacterById() {
-        
+    async deleteCharacter(id: string): Promise<void> {
+        await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).del().where({ id })
     }
 
 }
