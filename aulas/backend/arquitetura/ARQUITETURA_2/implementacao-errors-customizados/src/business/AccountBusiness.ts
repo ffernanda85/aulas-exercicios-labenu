@@ -1,4 +1,5 @@
 import { AccountDatabase } from "../database/AccountDatabase"
+import { NotFoundError } from "../errors/NotFoundError"
 import { Account } from "../models/Account"
 import { AccountDB } from "../types"
 
@@ -17,4 +18,27 @@ export class AccountBusiness {
         )
         return accounts
     }
+
+    getAccountBalance = async (input: any) => {
+        const { id } = input
+
+        const accountDatabase = new AccountDatabase()
+
+        const accountDB = await accountDatabase.findAccountById(id)
+        if (!accountDB) {
+            throw new NotFoundError("ID not found")
+        }
+
+        const account = new Account(
+            accountDB.id,
+            accountDB.balance,
+            accountDB.owner_id,
+            accountDB.created_at
+        )
+        const output = account.getBalance()
+
+        return output
+    }
+
+    
 }

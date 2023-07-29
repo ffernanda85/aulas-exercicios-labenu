@@ -10,18 +10,10 @@ import { AccountBusiness } from "../business/AccountBusiness"
 export class AccountController {
     public getAccounts = async (req: Request, res: Response) => {
         try {
-            /* const accountDatabase = new AccountDatabase()
-            const accountsDB: AccountDB[] = await accountDatabase.findAccounts()
-    
-            const accounts = accountsDB.map((accountDB) => new Account(
-                accountDB.id,
-                accountDB.balance,
-                accountDB.owner_id,
-                accountDB.created_at
-            )) */
             const accountBusiness = new AccountBusiness()
             const output = await accountBusiness.getAccounts()
                 console.log(output)
+
             res.status(200).send(output)
         } catch (error) {
             console.log(error)
@@ -36,23 +28,12 @@ export class AccountController {
 
     public getAccountBalance = async (req: Request, res: Response) => {
         try {
-            const id = req.params.id
-    
-            const accountDatabase = new AccountDatabase()
-            const accountDB = await accountDatabase.findAccountById(id)
-    
-            if (!accountDB) {
-                throw new NotFoundError("'id' não encontrado")
+            const input: any = {
+                id: req.params.id
             }
     
-            const account = new Account(
-                accountDB.id,
-                accountDB.balance,
-                accountDB.owner_id,
-                accountDB.created_at
-            )
-    
-            const balance = account.getBalance()
+            const accountBusiness = new AccountBusiness()
+            const balance = await accountBusiness.getAccountBalance(input)
     
             res.status(200).send({ balance })
         } catch (error) {
