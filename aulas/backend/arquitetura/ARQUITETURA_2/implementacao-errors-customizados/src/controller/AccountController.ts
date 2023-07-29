@@ -5,11 +5,12 @@ import { AccountDB } from "../types"
 import { BaseError } from "../errors/BaseError"
 import { NotFoundError } from "../errors/NotFoundError"
 import { BadRequestError } from "../errors/BadRequestError"
+import { AccountBusiness } from "../business/AccountBusiness"
 
 export class AccountController {
     public getAccounts = async (req: Request, res: Response) => {
         try {
-            const accountDatabase = new AccountDatabase()
+            /* const accountDatabase = new AccountDatabase()
             const accountsDB: AccountDB[] = await accountDatabase.findAccounts()
     
             const accounts = accountsDB.map((accountDB) => new Account(
@@ -17,9 +18,11 @@ export class AccountController {
                 accountDB.balance,
                 accountDB.owner_id,
                 accountDB.created_at
-            ))
-    
-            res.status(200).send(accounts)
+            )) */
+            const accountBusiness = new AccountBusiness()
+            const output = await accountBusiness.getAccounts()
+                console.log(output)
+            res.status(200).send(output)
         } catch (error) {
             console.log(error)
         
