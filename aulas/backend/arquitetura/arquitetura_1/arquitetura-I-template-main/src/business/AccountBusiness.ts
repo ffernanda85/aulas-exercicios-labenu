@@ -1,4 +1,6 @@
 import { AccountDatabase } from "../database/AccountDatabase"
+import { BadRequestError } from "../errors/BadRequestError"
+import { NotFoundError } from "../errors/NotFoundError"
 import { Account } from "../models/Account"
 import { AccountDB } from "../types"
 
@@ -22,7 +24,7 @@ export class AccountBusiness{
 
         const accountDBExists = await accountDatabase.findAccountById(id)
         if (!accountDBExists) {
-            throw new Error("ID not found");
+            throw new NotFoundError("ID not found");
         }
 
         const account = new Account(
@@ -32,7 +34,6 @@ export class AccountBusiness{
             accountDBExists.created_at
         )
         const balance = account.getBalance()
-
         return balance
     }
 
@@ -41,15 +42,15 @@ export class AccountBusiness{
         const accountDatabase = new AccountDatabase()
 
         if (typeof id !== "string") {
-            throw new Error("'id' deve ser string")
+            throw new BadRequestError("'ID' must be string")
         }
         if (typeof ownerId !== "string") {
-            throw new Error("'ownerId' deve ser string")
+            throw new BadRequestError("'ownerId' must be string")
         }
 
         const accountDBExists = await accountDatabase.findAccountById(id)
         if (accountDBExists) {
-            throw new Error("ID already exists");
+            throw new BadRequestError("ID already exists");
         }
 
         const newAccount = new Account(
@@ -79,10 +80,10 @@ export class AccountBusiness{
 
         const accountDBExists: AccountDB |undefined = await accountDatabase.findAccountById(id)
         if (!accountDBExists) {
-            throw new Error("'ID' not found")
+            throw new NotFoundError("'ID' not found")
         }
         if (typeof value !== "number") {
-            throw new Error("'value' deve ser number")
+            throw new BadRequestError("'value' must be number")
         }
         const account = new Account(
             accountDBExists.id,
