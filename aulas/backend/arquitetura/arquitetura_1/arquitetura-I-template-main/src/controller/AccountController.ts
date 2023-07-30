@@ -2,21 +2,15 @@ import { Request, Response } from "express"
 import { AccountDatabase } from "../database/AccountDatabase"
 import { Account } from "../models/Account"
 import { AccountDB } from "../types"
+import { AccountBusiness } from "../business/AccountBusiness"
 
 export class AccountController {
     public getAccounts = async (req: Request, res: Response) => {
         try {
-            const accountDatabase = new AccountDatabase()
-            const accountsDB: AccountDB[] = await accountDatabase.findAccounts()
-    
-            const accounts = accountsDB.map((accountDB) => new Account(
-                accountDB.id,
-                accountDB.balance,
-                accountDB.owner_id,
-                accountDB.created_at
-            ))
-    
-            res.status(200).send(accounts)
+            const accountBusiness = new AccountBusiness()
+            const output = await accountBusiness.getAccounts()
+
+            res.status(200).send(output)
         } catch (error) {
             console.log(error)
     
