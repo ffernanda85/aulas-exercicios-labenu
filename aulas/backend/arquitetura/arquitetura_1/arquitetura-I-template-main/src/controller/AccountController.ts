@@ -1,7 +1,4 @@
 import { Request, Response } from "express"
-import { AccountDatabase } from "../database/AccountDatabase"
-import { Account } from "../models/Account"
-import { AccountDB } from "../types"
 import { AccountBusiness } from "../business/AccountBusiness"
 
 export class AccountController {
@@ -28,25 +25,12 @@ export class AccountController {
 
     public getAccountBalance = async (req: Request, res: Response) => {
         try {
-            const id = req.params.id
-    
-            const accountDatabase = new AccountDatabase()
-            const accountDB = await accountDatabase.findAccountById(id)
-    
-            if (!accountDB) {
-                res.status(404)
-                throw new Error("'id' não encontrado")
+            const input: any = {
+                id: req.params.id
             }
-    
-            const account = new Account(
-                accountDB.id,
-                accountDB.balance,
-                accountDB.owner_id,
-                accountDB.created_at
-            )
-    
-            const balance = account.getBalance()
-    
+            const accountBusiness = new AccountBusiness()
+            const balance = await accountBusiness.getAccountBalance(input)
+
             res.status(200).send({ balance })
         } catch (error) {
             console.log(error)
@@ -65,43 +49,14 @@ export class AccountController {
 
     public createAccount = async (req: Request, res: Response) => {
         try {
-            const { id, ownerId } = req.body
-    
-            if (typeof id !== "string") {
-                res.status(400)
-                throw new Error("'id' deve ser string")
+            const input: any = {
+                id: req.body.id,
+                ownerId: req.body.ownerId
             }
+            const accountBusiness = new AccountBusiness()
+            const output = await accountBusiness.createAccount(input)
     
-            if (typeof ownerId !== "string") {
-                res.status(400)
-                throw new Error("'ownerId' deve ser string")
-            }
-    
-            const accountDatabase = new AccountDatabase()
-            const accountDBExists = await accountDatabase.findAccountById(id)
-    
-            if (accountDBExists) {
-                res.status(400)
-                throw new Error("'id' já existe")
-            }
-    
-            const newAccount = new Account(
-                id,
-                0,
-                ownerId,
-                new Date().toISOString()
-            )
-    
-            const newAccountDB: AccountDB = {
-                id: newAccount.getId(),
-                balance: newAccount.getBalance(),
-                owner_id: newAccount.getOwnerId(),
-                created_at: newAccount.getCreatedAt()
-            }
-    
-            await accountDatabase.insertAccount(newAccountDB)
-    
-            res.status(201).send(newAccount)
+            res.status(201).send(output)
         } catch (error) {
             console.log(error)
     
@@ -119,35 +74,14 @@ export class AccountController {
 
     public editAccountBalance = async (req: Request, res: Response) => {
         try {
-            const id = req.params.id
-            const value = req.body.value
-    
-            if (typeof value !== "number") {
-                res.status(400)
-                throw new Error("'value' deve ser number")
+            const input: any = {
+                id: req.params.id,
+                value: req.body.value
             }
-    
-            const accountDatabase = new AccountDatabase()
-            const accountDB = await accountDatabase.findAccountById(id)
-    
-            if (!accountDB) {
-                res.status(404)
-                throw new Error("'id' não encontrado")
-            }
-    
-            const account = new Account(
-                accountDB.id,
-                accountDB.balance,
-                accountDB.owner_id,
-                accountDB.created_at
-            )
-    
-            const newBalance = account.getBalance() + value
-            account.setBalance(newBalance)
-    
-            await accountDatabase.updateBalanceById(id, newBalance)
-    
-            res.status(200).send(account)
+            const accountBusiness = new AccountBusiness()
+            const output = await accountBusiness.editAccountBalance(input)
+
+            res.status(200).send(output)
         } catch (error) {
             console.log(error)
     
