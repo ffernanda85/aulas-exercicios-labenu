@@ -5,7 +5,7 @@ import { Account } from "../models/Account"
 import { AccountDB } from "../types"
 
 export class AccountBusiness{
-    getAccounts = async () => {
+    getAccounts = async (): Promise<Account[]> => {
         const accountDatabase = new AccountDatabase()
         const accountsDB: AccountDB[] = await accountDatabase.findAccounts()
 
@@ -18,8 +18,7 @@ export class AccountBusiness{
         return accounts
     }
 
-    async getAccountBalance(input: any) {
-        const { id } = input
+    async getAccountBalance(id: string): Promise<number>{
         const accountDatabase = new AccountDatabase()
 
         const accountDBExists = await accountDatabase.findAccountById(id)
@@ -37,7 +36,7 @@ export class AccountBusiness{
         return balance
     }
 
-    createAccount = async (input: any) => {
+    createAccount = async (input: any): Promise<{}> => {
         const { id, ownerId } = input
         const accountDatabase = new AccountDatabase()
 
@@ -74,7 +73,7 @@ export class AccountBusiness{
         return output
     }
 
-    editAccountBalance = async (input: any) => {
+    editAccountBalance = async (input: any): Promise<{}> => {
         const { id, value } = input
         const accountDatabase = new AccountDatabase()
 

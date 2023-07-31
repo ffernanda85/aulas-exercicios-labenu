@@ -5,7 +5,7 @@ import { UserDB } from "../types"
 
 export class UserBusiness {
 
-    getUsers = async (q: string | undefined) => {
+    getUsers = async (q: string | undefined): Promise<User[]> => {
         const userDatabase = new UserDatabase()
         const usersDB = await userDatabase.findUsers(q)
 
@@ -21,7 +21,7 @@ export class UserBusiness {
         return users
     }
 
-    createUser = async (input: any) => {
+    createUser = async (input: any): Promise<{}> => {
         const userDatabase = new UserDatabase()
         const { id, name, email, password } = input
 
