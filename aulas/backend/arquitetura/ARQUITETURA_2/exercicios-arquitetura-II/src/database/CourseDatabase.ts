@@ -17,4 +17,8 @@ export class CourseDatabase extends BaseDatabase{
         }
         return coursesDB
     }
+
+    createCourse = async () => {
+        
+    }
 }

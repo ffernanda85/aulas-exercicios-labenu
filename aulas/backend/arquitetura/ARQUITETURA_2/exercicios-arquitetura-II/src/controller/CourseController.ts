@@ -1,15 +1,15 @@
 import { Request, Response } from "express"
 import { BaseError } from "../errors/BaseError"
 import { CourseBusiness } from "../business/CourseBusiness"
+import { Course } from "../models/Course"
 
 export class CourseController{
     getCourses = async (req: Request, res: Response) => {
         try {
-            const input: any = {
-                name: req.query.name as string | undefined
-            }
+            const name = req.query.name as string | undefined
+            
             const courseBusiness = new CourseBusiness()
-            const output = await courseBusiness.getCourses(input)
+            const output: Course[] = await courseBusiness.getCourses(name)
 
             res.status(200).send(output)
         } catch (error: unknown) {
