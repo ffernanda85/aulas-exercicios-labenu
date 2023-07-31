@@ -3,9 +3,10 @@ import { Character } from "../models/Character"
 import { CharacterDB } from "../types"
 
 export class CharacterBusiness{
-    getCharacters = async () => {
+    getCharacters = async (input: any) => {
+        const { name } = input
         const characterDatabase = new CharacterDatabase()
-        const charactersDB: CharacterDB[] = await characterDatabase.findCharacters()
+        const charactersDB: CharacterDB[] = await characterDatabase.findCharacters(name)
 
         const characters = charactersDB.map(character =>
             new Character(

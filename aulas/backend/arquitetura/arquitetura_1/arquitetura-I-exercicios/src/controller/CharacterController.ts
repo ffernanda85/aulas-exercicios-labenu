@@ -5,8 +5,11 @@ export class CharacterController {
 
     async getCharacters(req: Request, res: Response) {
         try {
+            const input: any = {
+                name: req.query.name
+            }
             const characterBusiness = new CharacterBusiness()
-            const output = await characterBusiness.getCharacters()
+            const output = await characterBusiness.getCharacters(input)
             console.log(output);
             
             res.status(200).send(output)
