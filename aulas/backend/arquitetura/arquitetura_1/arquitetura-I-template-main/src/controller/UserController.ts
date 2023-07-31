@@ -5,11 +5,10 @@ import { BaseError } from "../errors/BaseError"
 export class UserController {
     public getUsers = async (req: Request, res: Response) => {
         try {
-            const input: any = {
-                q: req.query.q 
-            }
+            const q = req.query.q as string | undefined
+
             const userBusiness = new UserBusiness()
-            const output = await userBusiness.getUsers(input)
+            const output = await userBusiness.getUsers(q)
     
             res.status(200).send(output)
         } catch (error) {

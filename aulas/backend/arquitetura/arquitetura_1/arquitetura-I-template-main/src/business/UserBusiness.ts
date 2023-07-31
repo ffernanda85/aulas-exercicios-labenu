@@ -5,10 +5,8 @@ import { UserDB } from "../types"
 
 export class UserBusiness {
 
-    getUsers = async (input: any) => {
+    getUsers = async (q: string | undefined) => {
         const userDatabase = new UserDatabase()
-        const { q } = input
-
         const usersDB = await userDatabase.findUsers(q)
 
         const users: User[] = usersDB.map(user =>
