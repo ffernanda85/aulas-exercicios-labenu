@@ -7,8 +7,9 @@ export class CharacterController {
 
     async getCharacters(req: Request, res: Response): Promise<void> {
         try {
+            const name = req.query.name as string | undefined
             const characterDatabase = new CharacterDatabase()
-            const charactersDB: CharacterDB[] = await characterDatabase.findCharacters()
+            const charactersDB: CharacterDB[] = await characterDatabase.findCharacters(name)
 
             res.status(200).send(charactersDB)
         } catch (error: unknown) {

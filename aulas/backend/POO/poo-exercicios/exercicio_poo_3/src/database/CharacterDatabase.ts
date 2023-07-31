@@ -5,8 +5,15 @@ import { BaseDatabase } from "./BaseDatabase";
 export class CharacterDatabase extends BaseDatabase {
     static TABLE_CHAR = "characters"
 
-    async findCharacters(): Promise<CharacterDB[]> {
-        const charactersDB = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR)
+    async findCharacters(name: string|undefined): Promise<CharacterDB[]> {
+        let charactersDB
+        if (name) {
+            const result = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR).where("name", "LIKE", `%${name}%`)
+            charactersDB = result
+        } else {
+            const result = await BaseDatabase.connection(CharacterDatabase.TABLE_CHAR)
+            charactersDB = result
+        }
         return charactersDB
     }
 
