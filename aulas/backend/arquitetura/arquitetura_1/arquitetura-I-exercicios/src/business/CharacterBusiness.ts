@@ -3,8 +3,7 @@ import { Character } from "../models/Character"
 import { CharacterDB } from "../types"
 
 export class CharacterBusiness{
-    getCharacters = async (input: any) => {
-        const { name } = input
+    getCharacters = async (name: string | undefined): Promise<Character[]> => {
         const characterDatabase = new CharacterDatabase()
         const charactersDB: CharacterDB[] = await characterDatabase.findCharacters(name)
 
@@ -18,7 +17,7 @@ export class CharacterBusiness{
         return characters
     }
 
-    createNewCharacter = async (input: any) => {
+    createNewCharacter = async (input: CharacterDB): Promise<Character> => {
         const { id, name, series_name, age } = input
         const characterDatabase = new CharacterDatabase()
 
@@ -68,14 +67,11 @@ export class CharacterBusiness{
             age: newCharacter.getAge()
         } */
         await characterDatabase.insertCharacter(newCharacter)
-        const output = {
-            message: "created character",
-            newCharacter
-        }
-        return output
+        
+        return newCharacter
     }
 
-    updateCharacterById = async (input: any) => {
+    updateCharacterById = async (input: CharacterDB): Promise<Character> => {
         const { id, name, series_name, age } = input
         const characterDatabase = new CharacterDatabase()
         const characterDBExist = await characterDatabase.findCharacterById(id)
@@ -104,25 +100,17 @@ export class CharacterBusiness{
             age || characterDBExist.age
         )
         await characterDatabase.updateCharacter(newCharacter)
-        const output: {} = {
-            message: "updated character",
-            newCharacter
-        }
-        return output  
+        
+        return newCharacter  
     }
 
-    deleteCharacterById = async (input: any) => {
-        const { id } = input
+    deleteCharacterById = async (id: string): Promise<CharacterDB> => {
         const characterDatabase = new CharacterDatabase()
         const characterDBExist = await characterDatabase.findCharacterById(id)
         if (!characterDBExist) {
             throw new Error("'ID' not found");
         }
         await characterDatabase.deleteCharacter(id)
-        const output: {} = {
-            message: "deleted character",
-            characterDBExist
-        }
-        return output
+        return characterDBExist
     }
 }
