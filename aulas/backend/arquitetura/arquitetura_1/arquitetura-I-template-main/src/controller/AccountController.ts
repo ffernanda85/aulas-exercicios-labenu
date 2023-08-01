@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { AccountBusiness } from "../business/AccountBusiness"
 import { BaseError } from "../errors/BaseError"
+import { AccountDBPost, AccountDBUpdate } from "../types"
 
 export class AccountController {
     public getAccounts = async (req: Request, res: Response) => {
@@ -42,13 +43,16 @@ export class AccountController {
 
     public createAccount = async (req: Request, res: Response) => {
         try {
-            const input: any = {
+            const input: AccountDBPost = {
                 id: req.body.id,
-                ownerId: req.body.ownerId
+                owner_id: req.body.ownerId
             }
             const accountBusiness = new AccountBusiness()
-            const output = await accountBusiness.createAccount(input)
-    
+            const newAccount = await accountBusiness.createAccount(input)
+            const output = {
+                message: "created account",
+                account: newAccount
+            }
             res.status(201).send(output)
         } catch (error) {
             console.log(error)
@@ -63,12 +67,17 @@ export class AccountController {
 
     public editAccountBalance = async (req: Request, res: Response) => {
         try {
-            const input: any = {
+            const input: AccountDBUpdate = {
                 id: req.params.id,
                 value: req.body.value
             }
             const accountBusiness = new AccountBusiness()
-            const output = await accountBusiness.editAccountBalance(input)
+            const newBalance = await accountBusiness.editAccountBalance(input)
+
+            const output = {
+                message: "updated balance",
+                balance: newBalance
+            }
 
             res.status(200).send(output)
         } catch (error) {

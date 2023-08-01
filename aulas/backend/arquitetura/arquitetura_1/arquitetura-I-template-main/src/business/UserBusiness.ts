@@ -1,7 +1,7 @@
 import { UserDatabase } from "../database/UserDatabase"
 import { BadRequestError } from "../errors/BadRequestError"
 import { User } from "../models/User"
-import { UserDB } from "../types"
+import { UserDB, UserDBPost } from "../types"
 
 export class UserBusiness {
 
@@ -21,7 +21,7 @@ export class UserBusiness {
         return users
     }
 
-    createUser = async (input: any): Promise<{}> => {
+    createUser = async (input: UserDBPost): Promise<UserDB> => {
         const userDatabase = new UserDatabase()
         const { id, name, email, password } = input
 
@@ -57,10 +57,7 @@ export class UserBusiness {
             created_at: newUser.getCreatedAt()
         }
         await userDatabase.insertUser(newUserDB)
-        const output = {
-            message: "Registered user",
-            newUser: newUser
-        }
-        return output
+        
+        return newUserDB
     }
 }

@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { UserBusiness } from "../business/UserBusiness"
 import { BaseError } from "../errors/BaseError"
+import { UserDBPost } from "../types"
 
 export class UserController {
     public getUsers = async (req: Request, res: Response) => {
@@ -24,14 +25,19 @@ export class UserController {
 
     public createUser = async (req: Request, res: Response) => {
         try {
-            const input: any = {
+            const input: UserDBPost = {
                 id: req.body.id,
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password
             }
             const userBusiness = new UserBusiness()
-            const output = await userBusiness.createUser(input)
+            const user = await userBusiness.createUser(input)
+            const output = {
+                message: "created user",
+                user: user
+            }
+            
             res.status(201).send(output)
         } catch (error) {
             console.log(error)

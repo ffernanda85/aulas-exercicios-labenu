@@ -2,7 +2,7 @@ import { AccountDatabase } from "../database/AccountDatabase"
 import { BadRequestError } from "../errors/BadRequestError"
 import { NotFoundError } from "../errors/NotFoundError"
 import { Account } from "../models/Account"
-import { AccountDB } from "../types"
+import { AccountDB, AccountDBPost, AccountDBUpdate } from "../types"
 
 export class AccountBusiness{
     getAccounts = async (): Promise<Account[]> => {
@@ -36,14 +36,14 @@ export class AccountBusiness{
         return balance
     }
 
-    createAccount = async (input: any): Promise<{}> => {
-        const { id, ownerId } = input
+    createAccount = async (input: AccountDBPost): Promise<Account> => {
+        const { id, owner_id } = input
         const accountDatabase = new AccountDatabase()
 
         if (typeof id !== "string") {
             throw new BadRequestError("'ID' must be string")
         }
-        if (typeof ownerId !== "string") {
+        if (typeof owner_id !== "string") {
             throw new BadRequestError("'ownerId' must be string")
         }
 
@@ -55,7 +55,7 @@ export class AccountBusiness{
         const newAccount = new Account(
             id,
             0,
-            ownerId,
+            owner_id,
             new Date().toISOString()
         )
 
@@ -66,14 +66,11 @@ export class AccountBusiness{
             created_at: newAccount.getCreatedAt()
         }
         await accountDatabase.insertAccount(newAccountDB)
-        const output = {
-            message: "created account",
-            newAccount: newAccountDB
-        }
-        return output
+        
+        return newAccount
     }
 
-    editAccountBalance = async (input: any): Promise<{}> => {
+    editAccountBalance = async (input: AccountDBUpdate): Promise<number> => {
         const { id, value } = input
         const accountDatabase = new AccountDatabase()
 
@@ -94,10 +91,7 @@ export class AccountBusiness{
         account.setBalance(newBalance)
 
         await accountDatabase.updateBalanceById(id, newBalance)
-        const output = {
-            message: "updated balance",
-            balance: newBalance
-        }
-        return output
+        
+        return newBalance
     }
 }
