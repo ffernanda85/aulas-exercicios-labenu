@@ -18,7 +18,7 @@ export class UserBusiness {
         return users
     }
 
-    public createUser = async (input: any) => {
+    public createUser = async (input: UserDB) => {
         const { id, name, email, password } = input
 
         if (typeof id !== "string") {
