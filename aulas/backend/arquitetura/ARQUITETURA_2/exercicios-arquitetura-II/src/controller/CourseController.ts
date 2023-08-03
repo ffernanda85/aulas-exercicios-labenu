@@ -33,11 +33,8 @@ export class CourseController{
             } 
             const courseBusiness = new CourseBusiness()
             const newCourse = await courseBusiness.createCourse(input)
-            const output = {
-                message: "registered course",
-                course: newCourse
-            }
-            res.status(201).send(output)
+            
+            res.status(201).send(newCourse)
         } catch (error: unknown) {
             console.log(error)
 
@@ -56,11 +53,8 @@ export class CourseController{
             const id: string = req.params.id
             const courseBusiness = new CourseBusiness()
             const courseDeleted = await courseBusiness.deleteCourseById(id)
-            const output = {
-                message: "deleted course",
-                courseDeleted
-            }
-            res.status(200).send(output)
+            
+            res.status(200).send(courseDeleted)
         } catch (error: unknown) {
             console.log(error)
 
@@ -71,4 +65,26 @@ export class CourseController{
             }
         }
     }
+
+    updateCourseById = async (req: Request, res: Response) => {
+        try {
+            const input: CourseDB | undefined = {
+                id: req.params.id,
+                name: req.body.name as string,
+                lessons: req.body.lessons as number
+            }
+            const courseBusiness = new CourseBusiness()
+            const output = await courseBusiness.updateCourseById(input)
+            res.status(201).send(output)
+        } catch (error: unknown) {
+            console.log(error)
+
+            if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.status(500).send("unexpected error")
+            }
+        }
+    }
+
 }

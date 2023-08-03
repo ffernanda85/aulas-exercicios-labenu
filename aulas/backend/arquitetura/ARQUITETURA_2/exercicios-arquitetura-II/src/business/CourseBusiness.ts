@@ -17,7 +17,7 @@ export class CourseBusiness{
         return courses        
     }
 
-    createCourse = async (input: CourseDB): Promise<Course> => {
+    createCourse = async (input: CourseDB): Promise<{}> => {
         const { id, name, lessons } = input
         const courseDatabase = new CourseDatabase()
 
@@ -48,23 +48,67 @@ export class CourseBusiness{
         }
 
         await courseDatabase.insertCourse(newCourseDB)
-        return newCourse
+
+        const output = {
+            message: "registered course",
+            course: newCourse
+        }
+        return output
     }
 
-    deleteCourseById = async (id: string): Promise<Course> => {
+    deleteCourseById = async (id: string): Promise<{}> => {
         const courseDatabase = new CourseDatabase()
         
         const courseExistDB = await courseDatabase.findCourseById(id)
         if (!courseExistDB) {
             throw new NotFoundError("course ID not found");
         }
-        const courseDelete = new Course(
+        const courseDeleted = new Course(
             id,
             courseExistDB.name,
             courseExistDB.lessons
         )
         await courseDatabase.deleteCourse(id)
-        
-        return courseDelete
+
+        const output = {
+            message: "deleted course",
+            courseDeleted
+        }
+        return output
+    }
+
+    updateCourseById = async (input: CourseDB ): Promise<{}> => {
+        const { id, name, lessons } = input
+        const courseDatabase = new CourseDatabase()
+
+        const courseExistDB = await courseDatabase.findCourseById(id)
+        if (!courseExistDB) {
+            throw new NotFoundError("course ID not found");
+        }
+
+        if (name !== undefined && typeof name !== "string") {
+            throw new BadRequestError("name must be string");
+        }
+        if (lessons !== undefined && typeof lessons !== "number") {
+            throw new BadRequestError("lessons must be number");
+        }
+
+        const updatedCourse = new Course(
+            id,
+            name || courseExistDB.name,
+            lessons || courseExistDB.lessons
+        )
+        const updatedCourseDB: CourseDB = {
+            id: updatedCourse.getId(),
+            name: updatedCourse.getName(),
+            lessons: updatedCourse.getLessons()
+        }
+        await courseDatabase.updateCourse(updatedCourseDB)
+
+        const output = {
+            message: "updated course",
+            updatedCourse
+        }
+        return output
     }
 }

@@ -1,3 +1,4 @@
+import { Course } from "../models/Course";
 import { CourseDB } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 
@@ -31,5 +32,9 @@ export class CourseDatabase extends BaseDatabase{
 
     deleteCourse = async (id: string): Promise<void> => {
         await BaseDatabase.connection(CourseDatabase.TABLE_COURSE).del().where({ id })
+    }
+
+    updateCourse = async (input: CourseDB): Promise<void> => {
+        await BaseDatabase.connection(CourseDatabase.TABLE_COURSE).update(input).where({id: input.id})
     }
 }
