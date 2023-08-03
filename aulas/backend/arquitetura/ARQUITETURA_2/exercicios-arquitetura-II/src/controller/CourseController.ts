@@ -49,4 +49,26 @@ export class CourseController{
         }
         
     }
+
+    deleteCourseById = async (req: Request, res: Response) => {
+        try {
+            
+            const id: string = req.params.id
+            const courseBusiness = new CourseBusiness()
+            const courseDeleted = await courseBusiness.deleteCourseById(id)
+            const output = {
+                message: "deleted course",
+                courseDeleted
+            }
+            res.status(200).send(output)
+        } catch (error: unknown) {
+            console.log(error)
+
+            if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.status(500).send("unexpected error")
+            }
+        }
+    }
 }

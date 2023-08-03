@@ -6,3 +6,4 @@ const courseController = new CourseController()
 
 courseRouter.get("/", courseController.getCourses)
 courseRouter.post("/", courseController.createCourse)
+courseRouter.delete("/:id", courseController.deleteCourseById)

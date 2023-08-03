@@ -28,4 +28,8 @@ export class CourseDatabase extends BaseDatabase{
     insertCourse = async (input: CourseDB): Promise<void> => {
         await BaseDatabase.connection(CourseDatabase.TABLE_COURSE).insert(input)
     }
+
+    deleteCourse = async (id: string): Promise<void> => {
+        await BaseDatabase.connection(CourseDatabase.TABLE_COURSE).del().where({ id })
+    }
 }

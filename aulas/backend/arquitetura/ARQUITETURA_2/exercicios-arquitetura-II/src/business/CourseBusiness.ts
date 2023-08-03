@@ -1,5 +1,6 @@
 import { CourseDatabase } from "../database/CourseDatabase"
 import { BadRequestError } from "../errors/BadRequestError"
+import { NotFoundError } from "../errors/NotFoundError"
 import { Course } from "../models/Course"
 import { CourseDB } from "../types"
 
@@ -50,5 +51,20 @@ export class CourseBusiness{
         return newCourse
     }
 
-    
+    deleteCourseById = async (id: string): Promise<Course> => {
+        const courseDatabase = new CourseDatabase()
+        
+        const courseExistDB = await courseDatabase.findCourseById(id)
+        if (!courseExistDB) {
+            throw new NotFoundError("course ID not found");
+        }
+        const courseDelete = new Course(
+            id,
+            courseExistDB.name,
+            courseExistDB.lessons
+        )
+        await courseDatabase.deleteCourse(id)
+        
+        return courseDelete
+    }
 }
