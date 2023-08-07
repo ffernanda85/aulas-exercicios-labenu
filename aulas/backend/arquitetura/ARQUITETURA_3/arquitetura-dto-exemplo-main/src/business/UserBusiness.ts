@@ -1,45 +1,17 @@
 import { UserDatabase } from "../database/UserDatabase"
+import { CreateUserInputDTO, CreateUserOutputDTO } from "../dtos/createUser.dto"
 import { BadRequestError } from "../errors/BadRequestError"
 import { NotFoundError } from "../errors/NotFoundError"
 import { User, UserDB } from "../models/User"
 
 export class UserBusiness {
-  public createUser = async (input: any) => {
+  public createUser = async (input: CreateUserInputDTO): Promise<CreateUserOutputDTO> => {
     const { id, name, email, password } = input
-
-    if (typeof id !== "string") {
-      throw new BadRequestError("'id' deve ser string")
-    }
-
-    if (typeof name !== "string") {
-      throw new BadRequestError("'name' deve ser string")
-    }
-
-    if (typeof email !== "string") {
-      throw new BadRequestError("'email' deve ser string")
-    }
-
-    if (typeof password !== "string") {
-      throw new BadRequestError("'password' deve ser string")
-    }
-
-    if (name.length < 2) {
-      throw new BadRequestError("'name' deve possuir pelo menos 2 caracteres")
-    }
-
-    if (!email.includes('@')) {
-      throw new BadRequestError("'email' inválido")
-    }
-
-    if (password.length < 4) {
-      throw new BadRequestError("'password' deve possuir pelo menos 4 caracteres")
-    }
-
     const userDatabase = new UserDatabase()
     const userDBExists = await userDatabase.findUserById(id)
 
     if (userDBExists) {
-      throw new BadRequestError("'id' já existe")
+      throw new BadRequestError("'id' already exists")
     }
 
     const newUser = new User(
@@ -60,13 +32,13 @@ export class UserBusiness {
 
     await userDatabase.insertUser(newUserDB)
 
-    const output = {
-      message: "Cadastro realizado com sucesso",
+    const output: CreateUserOutputDTO = {
+      message: "Successful registration",
       user: {
         id: newUser.getId(),
         name: newUser.getName(),
         email: newUser.getEmail(),
-        created_at: newUser.getCreatedAt()
+        createdAt: newUser.getCreatedAt()
       }
     }
 
