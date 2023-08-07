@@ -5,10 +5,15 @@ import { NotFoundError } from "../errors/NotFoundError"
 import { User, UserDB } from "../models/User"
 
 export class UserBusiness {
+
+  constructor(
+    private userDatabase: UserDatabase
+  ) {}
+
   public createUser = async (input: CreateUserInputDTO): Promise<CreateUserOutputDTO> => {
     const { id, name, email, password } = input
-    const userDatabase = new UserDatabase()
-    const userDBExists = await userDatabase.findUserById(id)
+    //const userDatabase = new UserDatabase()
+    const userDBExists = await this.userDatabase.findUserById(id)
 
     if (userDBExists) {
       throw new BadRequestError("'id' already exists")
@@ -30,7 +35,7 @@ export class UserBusiness {
       created_at: newUser.getCreatedAt()
     }
 
-    await userDatabase.insertUser(newUserDB)
+    await this.userDatabase.insertUser(newUserDB)
 
     const output: CreateUserOutputDTO = {
       message: "Successful registration",
@@ -48,8 +53,8 @@ export class UserBusiness {
   public getUsers = async (input: any) => {
     const { q } = input
 
-    const userDatabase = new UserDatabase()
-    const usersDB = await userDatabase.findUsers(q)
+    //const userDatabase = new UserDatabase()
+    const usersDB = await this.userDatabase.findUsers(q)
 
     const users: User[] = usersDB.map((userDB) => new User(
       userDB.id,
@@ -111,8 +116,8 @@ export class UserBusiness {
       }
     }
 
-    const userDatabase = new UserDatabase()
-    const userDB = await userDatabase.findUserById(idToEdit)
+    //const userDatabase = new UserDatabase()
+    const userDB = await this.userDatabase.findUserById(idToEdit)
 
     if (!userDB) {
       throw new NotFoundError("id a ser editado não existe")
@@ -139,7 +144,7 @@ export class UserBusiness {
       created_at: user.getCreatedAt()
     }
 
-    await userDatabase.updateUser(idToEdit, updatedUserDB)
+    await this.userDatabase.updateUser(idToEdit, updatedUserDB)
 
     const output = {
       message: "Edição realizada com sucesso",
@@ -161,8 +166,8 @@ export class UserBusiness {
       throw new BadRequestError("id a ser deletado é obrigatório e deve ser string")
     }
 
-    const userDatabase = new UserDatabase()
-    const userDB = await userDatabase.findUserById(idToDelete)
+    //const userDatabase = new UserDatabase()
+    const userDB = await this.userDatabase.findUserById(idToDelete)
 
     if (!userDB) {
       throw new NotFoundError("id a ser deletado não existe")
@@ -176,7 +181,7 @@ export class UserBusiness {
       userDB.created_at
     ) // yyyy-mm-ddThh:mm:sssZ
 
-    await userDatabase.deleteUserById(idToDelete)
+    await this.userDatabase.deleteUserById(idToDelete)
 
     const output = {
       message: "Deleção realizada com sucesso",
