@@ -1,4 +1,5 @@
 import { CourseDatabase } from "../database/CourseDatabase"
+import { CreateCourseInputDTO, CreateCourseOutputDTO } from "../dtos/createCourse.dto"
 import { BadRequestError } from "../errors/BadRequestError"
 import { NotFoundError } from "../errors/NotFoundError"
 import { CourseDB } from "../models/Course"
@@ -28,29 +29,8 @@ export class CourseBusiness {
     return output
   }
 
-  public createCourse = async (input: any) => {
+  public createCourse = async (input: CreateCourseInputDTO): Promise<CreateCourseOutputDTO> => {
     const { id, name, lessons } = input
-
-    if (typeof id !== "string") {
-      throw new BadRequestError("'id' deve ser string")
-    }
-
-    if (typeof name !== "string") {
-      throw new BadRequestError("'name' deve ser string")
-    }
-
-    if (typeof lessons !== "number") {
-      throw new BadRequestError("'lessons' deve ser number")
-    }
-
-    if (name.length < 2) {
-      throw new BadRequestError("'name' deve possuir pelo menos 2 caracteres")
-    }
-
-    if (lessons <= 0) {
-      throw new BadRequestError("'lessons' não pode ser zero ou negativo")
-    }
-
     const courseDatabase = new CourseDatabase()
     const courseDBExists = await courseDatabase.findCourseById(id)
 
@@ -74,8 +54,8 @@ export class CourseBusiness {
 
     await courseDatabase.insertCourse(newCourseDB)
 
-    const output = {
-      message: "Curso registrado com sucesso",
+    const output: CreateCourseOutputDTO = {
+      message: "Successfully registered course",
       course: {
         id: newCourse.getId(),
         name: newCourse.getName(),
