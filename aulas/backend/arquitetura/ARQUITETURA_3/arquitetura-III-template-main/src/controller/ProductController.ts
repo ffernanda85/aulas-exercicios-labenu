@@ -19,8 +19,6 @@ export class ProductController {
         name: req.body.name,
         price: req.body.price
       })
-
-      //const productBusiness = new ProductBusiness()
       const output = await this.productBusiness.createProduct(input)
 
       res.status(201).send(output)
@@ -42,8 +40,6 @@ export class ProductController {
       const input = {
         q: req.query.q
       }
-
-      //const productBusiness = new ProductBusiness()
       const output = await this.productBusiness.getProducts(input)
 
       res.status(200).send(output)
@@ -67,7 +63,6 @@ export class ProductController {
         name: req.body.name,
         price: req.body.price
       })
-//      const productBusiness = new ProductBusiness()
       const output = await this.productBusiness.editProduct(input)
 
       res.status(200).send(output)
@@ -90,8 +85,6 @@ export class ProductController {
       const input = {
         idToDelete: req.params.id
       }
-
-      //const productBusiness = new ProductBusiness()
       const output = await this.productBusiness.deleteProduct(input)
 
       res.status(200).send(output)
