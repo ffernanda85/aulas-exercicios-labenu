@@ -3,7 +3,7 @@ import { AuthorController } from '../controller/AuthorsController'
 import { AuthorBusiness } from '../business/AuthorBusiness'
 import { AuthorDatabase } from '../database/AuthorDatabase'
 
-export const authorsRouter = express.Router()
+export const authorRouter = express.Router()
 const authorController = new AuthorController(new AuthorBusiness(new AuthorDatabase()))
 
-authorsRouter.get("/", authorController.getAuthor)
+authorRouter.get("/", authorController.getAuthors)

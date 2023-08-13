@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors'
 import { newsRouter } from "./router/newsRouter";
-import { authorsRouter } from "./router/authorsRouter";
+import { authorRouter } from "./router/authorRouter";
 
 const app = express()
 
@@ -13,4 +13,4 @@ app.listen(3003, () => {
 })
 
 app.use("/news", newsRouter)
-app.use("/authors", authorsRouter)
+app.use("/authors", authorRouter)

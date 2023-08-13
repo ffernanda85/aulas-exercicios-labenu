@@ -9,3 +9,6 @@ const newsBusiness = new NewsBusiness(newsDatabase)
 const newsController = new NewsController(newsBusiness)
 
 newsRouter.get("/", newsController.getNews)
+newsRouter.post("/", newsController.createNews)
+newsRouter.put("/:id", newsController.editNews)
+newsRouter.delete("/:id", newsController.deleteNews)
