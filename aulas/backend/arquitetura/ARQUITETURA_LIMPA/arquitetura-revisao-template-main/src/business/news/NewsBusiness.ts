@@ -1,9 +1,9 @@
-import { NewsDatabase } from "../database/NewsDatabase"
-import { CreateNewsInputDTO, CreateNewsOutputDTO } from "../dtos/createNews.dto"
-import { DeleteNewsOutput } from "../dtos/deleteNews.dto"
-import { EditNewsInputDTO, EditNewsOutputDTO } from "../dtos/editNews.dto"
-import { NotFoundError } from "../errors/NotFoundError"
-import { News, NewsDBModel } from "../models/News"
+import { NewsDatabase } from "../../database/news/NewsDatabase"
+import { CreateNewsInputDTO, CreateNewsOutputDTO } from "../../dtos/news/createNews.dto"
+import { DeleteNewsOutput } from "../../dtos/news/deleteNews.dto"
+import { EditNewsInputDTO, EditNewsOutputDTO } from "../../dtos/news/editNews.dto"
+import { NotFoundError } from "../../errors/NotFoundError"
+import { News, NewsDBModel } from "../../models/news/News"
 
 export class NewsBusiness {
     constructor( 
@@ -26,9 +26,11 @@ export class NewsBusiness {
 
     createNews = async (input: CreateNewsInputDTO): Promise<CreateNewsOutputDTO> => {
         const { title, description, author } = input
+        /* Criando números aleatórios para inserir como id */
         let num = Math.floor(Math.random() * (255 - 1) + 1)
+        /* modelando os números aleatórios para utilizar como id */
         const id: string = num >= 10 ? 'n0' + num.toString() : num >= 100 ? 'n' + num.toString() : 'n00' + num.toString()
-
+        
         const newsDB: NewsDBModel = {
             id,
             title,

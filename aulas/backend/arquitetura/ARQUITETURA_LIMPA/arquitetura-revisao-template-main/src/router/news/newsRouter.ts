@@ -1,7 +1,7 @@
 import express from 'express'
-import { NewsController } from '../controller/NewsController'
-import { NewsBusiness } from '../business/NewsBusiness'
-import { NewsDatabase } from '../database/NewsDatabase'
+import { NewsController } from '../../controller/news/NewsController'
+import { NewsBusiness } from '../../business/news/NewsBusiness'
+import { NewsDatabase } from '../../database/news/NewsDatabase'
 
 export const newsRouter = express.Router()
 const newsDatabase = new NewsDatabase()

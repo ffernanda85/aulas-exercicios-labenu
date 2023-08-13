@@ -1,5 +1,5 @@
-import { NewsDBModel } from "../models/News";
-import { BaseDatabase } from "./BaseDatabase";
+import { NewsDBModel } from "../../models/news/News";
+import { BaseDatabase } from "../BaseDatabase";
 
 export class NewsDatabase extends BaseDatabase{
     private static TABLE_NAME = 'news'

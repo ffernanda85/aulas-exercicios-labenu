@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { NewsBusiness } from "../business/NewsBusiness";
+import { NewsBusiness } from "../../business/news/NewsBusiness";
 import { ZodError } from "zod";
-import { CreateNewsInputDTO, CreateNewsSchema } from "../dtos/createNews.dto";
-import { EditNewsOutputDTO, EditNewsSchema } from "../dtos/editNews.dto";
-import { BaseError } from "../errors/BaseError";
+import { CreateNewsOutputDTO, CreateNewsSchema } from "../../dtos/news/createNews.dto";
+import { EditNewsOutputDTO, EditNewsSchema } from "../../dtos/news/editNews.dto";
+import { BaseError } from "../../errors/BaseError";
 
 export class NewsController{
     constructor(
@@ -36,7 +36,7 @@ export class NewsController{
                 author: req.body.author
             })
 
-            const output = await this.newsBusiness.createNews(input)
+            const output: CreateNewsOutputDTO = await this.newsBusiness.createNews(input)
             res.status(201).send(output)
             
         } catch (error: unknown) {

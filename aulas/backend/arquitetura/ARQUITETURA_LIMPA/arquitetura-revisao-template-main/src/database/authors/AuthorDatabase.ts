@@ -1,5 +1,5 @@
-import { AuthorDB } from "../models/Author";
-import { BaseDatabase } from "./BaseDatabase";
+import { AuthorDB } from "../../models/authors/Author";
+import { BaseDatabase } from "../BaseDatabase";
 
 export class AuthorDatabase extends BaseDatabase{
     private static TABLE_NAME = 'authors'

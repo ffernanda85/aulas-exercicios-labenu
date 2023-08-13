@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { getAuthorInputDTO } from "../dtos/getAuthors.dto";
-import { AuthorBusiness } from "../business/AuthorBusiness";
+import { getAuthorInputDTO } from "../../dtos/authors/getAuthors.dto";
+import { AuthorBusiness } from "../../business/authors/AuthorBusiness";
 import { ZodError } from "zod";
-import { BaseError } from "../errors/BaseError";
+import { BaseError } from "../../errors/BaseError";
 
 export class AuthorController{
     constructor(

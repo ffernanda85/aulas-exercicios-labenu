@@ -1,6 +1,6 @@
-import { AuthorDatabase } from "../database/AuthorDatabase";
-import { getAuthorInputDTO, getAuthorOutputDTO } from "../dtos/getAuthors.dto";
-import { AuthorDB } from "../models/Author";
+import { AuthorDatabase } from "../../database/authors/AuthorDatabase";
+import { getAuthorInputDTO, getAuthorOutputDTO } from "../../dtos/authors/getAuthors.dto";
+import { AuthorDB } from "../../models/authors/Author";
 
 export class AuthorBusiness{
     constructor(

@@ -1,4 +1,3 @@
-import { News } from "../models/News"
 import z from 'zod'
 
 export interface EditNewsInputDTO {

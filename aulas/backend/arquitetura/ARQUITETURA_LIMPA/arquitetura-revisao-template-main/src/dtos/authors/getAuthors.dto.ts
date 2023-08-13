@@ -1,4 +1,4 @@
-import { AuthorDB } from "../models/Author"
+import { AuthorDB } from "../../models/authors/Author"
 
 export interface getAuthorInputDTO{
     q?: string

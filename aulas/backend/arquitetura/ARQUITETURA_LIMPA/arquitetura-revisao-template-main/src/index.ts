@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors'
-import { newsRouter } from "./router/newsRouter";
-import { authorRouter } from "./router/authorRouter";
+import { newsRouter } from "./router/news/newsRouter";
+import { authorRouter } from "./router/authors/authorRouter";
 
 const app = express()
 

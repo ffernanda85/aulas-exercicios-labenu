@@ -1,5 +1,5 @@
 import z from 'zod'
-import { News } from '../models/News'
+import { News } from '../../models/news/News'
 
 export interface CreateNewsInputDTO {
     title: string,
