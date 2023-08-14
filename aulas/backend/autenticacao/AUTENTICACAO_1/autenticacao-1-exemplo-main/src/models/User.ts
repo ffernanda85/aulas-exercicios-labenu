@@ -21,6 +21,12 @@ export interface UserModel {
   createdAt: string
 }
 
+export interface TokenPayload {
+    id: string,
+	name: string,
+    role: USER_ROLES
+}
+
 export class User {    
     constructor(
         private id: string,
