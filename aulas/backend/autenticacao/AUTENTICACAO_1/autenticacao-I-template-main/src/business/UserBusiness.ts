@@ -44,13 +44,14 @@ export class UserBusiness {
     input: SignupInputDTO
   ): Promise<SignupOutputDTO> => {
     const { name, email, password } = input
-
-    const id = this.idGenerator.generate()
-    const userDBExists = await this.userDatabase.findUserById(id)
+    /* verificando se o email já existe */
+    const userDBExists = await this.userDatabase.findUserByEmail(email)
     if (userDBExists) {
-      throw new BadRequestError("'id' já existe")
+      throw new BadRequestError("'EMAIL' já existe")
     }
     
+    const id = this.idGenerator.generate()
+
     const newUser = new User(
       id,
       name,
@@ -59,6 +60,9 @@ export class UserBusiness {
       USER_ROLES.NORMAL, // só é possível criar users com contas normais
       new Date().toISOString()
     )
+    const newUserDB = newUser.toDBModel()
+    await this.userDatabase.insertUser(newUserDB)
+
     /* Gerando o payload para enviar no tokenManager e gerar o token */
     const payload: TokenPayload = {
       id: newUser.getId(),
@@ -67,9 +71,6 @@ export class UserBusiness {
     }
     /* gerando o token */
     const token = this.tokenManager.createToken(payload)
-
-    const newUserDB = newUser.toDBModel()
-    await this.userDatabase.insertUser(newUserDB)
 
     const output: SignupOutputDTO = {
       message: "Cadastro realizado com sucesso",
