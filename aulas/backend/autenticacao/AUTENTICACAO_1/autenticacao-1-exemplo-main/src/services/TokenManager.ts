@@ -15,7 +15,6 @@ export class TokenManager {
                 expiresIn: process.env.JWT_EXPIRES_IN
             }
         )
-
         return token
     }
 
@@ -26,12 +25,10 @@ export class TokenManager {
                 token,
                 process.env.JWT_KEY as string
             )
-
             return payload as TokenPayload
-        
-				// se a validação falhar, um erro é disparado pelo jsonwebtoken
+            	// se a validação falhar, um erro é disparado pelo jsonwebtoken
 				// nós pegamos o erro aqui e retornamos null para a Business saber que falhou
-				} catch (error) {
+			} catch (error) {
             return null
         }
     }
