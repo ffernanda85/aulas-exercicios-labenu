@@ -5,6 +5,7 @@ import { SignupInputDTO, SignupOutputDTO } from "../dtos/user/signup.dto"
 import { BadRequestError } from "../errors/BadRequestError"
 import { NotFoundError } from "../errors/NotFoundError"
 import { TokenPayload, USER_ROLES, User } from "../models/User"
+import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
 import { TokenManager } from "../services/TokenManager"
 
@@ -12,13 +13,21 @@ export class UserBusiness {
   constructor(
     private userDatabase: UserDatabase,
     private idGenerator: IdGenerator,
-    private tokenManager: TokenManager
+    private tokenManager: TokenManager,
+    private hashManager: HashManager
   ) { }
 
-  public getUsers = async (
-    input: GetUsersInputDTO
-  ): Promise<GetUsersOutputDTO> => {
-    const { q } = input
+  public getUsers = async (input: GetUsersInputDTO): Promise<GetUsersOutputDTO> => {
+    const { q, token } = input
+
+    const payload = this.tokenManager.getPayload(token)
+
+    if (payload === null) {
+      throw new BadRequestError("TOKEN invalid");
+    }
+    if (payload.role !== USER_ROLES.ADMIN) {
+      throw new BadRequestError("Not authorized");
+    }
 
     const usersDB = await this.userDatabase.findUsers(q)
 
@@ -31,7 +40,6 @@ export class UserBusiness {
         userDB.role,
         userDB.created_at
       )
-
       return user.toBusinessModel()
     })
 
@@ -46,20 +54,19 @@ export class UserBusiness {
     // const { id, name, email, password } = input
     const { name, email, password } = input
 
-    // const userDBExists = await this.userDatabase.findUserById(id)
+    const userDBExists = await this.userDatabase.findUserByEmail(email)
+    if (userDBExists) {
+       throw new BadRequestError("'email' já existe")
+    }
 
-    // if (userDBExists) {
-    //   throw new BadRequestError("'id' já existe")
-    // }
-
-    console.log(this)
+    const hashedPassword = await this.hashManager.hash(password)
     const id = this.idGenerator.generate()
 
     const newUser = new User(
       id,
       name,
       email,
-      password,
+      hashedPassword,
       USER_ROLES.NORMAL, // só é possível criar users com contas normais
       new Date().toISOString()
     )
@@ -85,9 +92,7 @@ export class UserBusiness {
     return output
   }
 
-  public login = async (
-    input: LoginInputDTO
-  ): Promise<LoginOutputDTO> => {
+  public login = async (input: LoginInputDTO): Promise<LoginOutputDTO> => {
     const { email, password } = input
 
     const userDB = await this.userDatabase.findUserByEmail(email)
@@ -96,10 +101,14 @@ export class UserBusiness {
       throw new NotFoundError("'email' não encontrado")
     }
 
-    if (password !== userDB.password) {
-      throw new BadRequestError("'email' ou 'password' incorretos")
-    }
+    const hashedPassword = userDB.password
 
+    const passwordCompare = await this.hashManager.compare(password, hashedPassword)
+    
+    if (!passwordCompare) {
+      throw new BadRequestError("Email e Password não conferem");
+    }
+    
     const user = new User(
       userDB.id,
       userDB.name,

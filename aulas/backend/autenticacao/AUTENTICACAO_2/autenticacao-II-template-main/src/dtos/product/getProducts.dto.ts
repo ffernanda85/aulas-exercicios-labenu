@@ -2,7 +2,8 @@ import z from "zod"
 import { ProductModel } from "../../models/Product"
 
 export interface GetProductsInputDTO {
-  q: string
+  q: string, 
+  token: string
 }
 
 // ProductModel é a estrutura de Product que será devolvida para o Front
@@ -10,5 +11,6 @@ export interface GetProductsInputDTO {
 export type GetProductsOutputDTO = ProductModel[]
 
 export const GetProductsSchema = z.object({
-  q: z.string().min(1).optional()
+  q: z.string().min(1).optional(),
+  token: z.string().min(1)
 }).transform(data => data as GetProductsInputDTO)

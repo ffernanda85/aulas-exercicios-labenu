@@ -3,18 +3,26 @@ import { CreateProductInputDTO, CreateProductOutputDTO } from "../dtos/product/c
 import { GetProductsInputDTO, GetProductsOutputDTO } from "../dtos/product/getProducts.dto"
 import { BadRequestError } from "../errors/BadRequestError"
 import { Product } from "../models/Product"
+import { USER_ROLES } from "../models/User"
 import { IdGenerator } from "../services/IdGenerator"
+import { TokenManager } from "../services/TokenManager"
 
 export class ProductBusiness {
   constructor(
     private productDatabase: ProductDatabase,
-    private idGenerator: IdGenerator
+    private idGenerator: IdGenerator,
+    private tokenManager: TokenManager
   ) { }
 
   public getProducts = async (
     input: GetProductsInputDTO
   ): Promise<GetProductsOutputDTO> => {
-    const { q } = input
+    const { q, token } = input
+
+    const payload = this.tokenManager.getPayload(token)
+    if (payload === null) {
+      throw new BadRequestError("Invalid token");
+    }
 
     const productsDB = await this.productDatabase.findProducts(q)
 
@@ -38,13 +46,16 @@ export class ProductBusiness {
     input: CreateProductInputDTO
   ): Promise<CreateProductOutputDTO> => {
     // const { id, name, price } = input
-    const { name, price } = input
+    const { name, price, token } = input
 
-    // const productDBExists = await this.productDatabase.findProductById(id)
+    const payload = this.tokenManager.getPayload(token)
+    if (payload === null) {
+      throw new BadRequestError("Ivalid token");
+    }
 
-    // if (productDBExists) {
-    //   throw new BadRequestError("'id' já existe")
-    // }
+    if (payload.role !== USER_ROLES.ADMIN) {
+      throw new BadRequestError("only ADMIN are allowed");
+    }
 
     const id = this.idGenerator.generate()
 
@@ -59,10 +70,9 @@ export class ProductBusiness {
     await this.productDatabase.insertProduct(newProductDB)
 
     const output: CreateProductOutputDTO = {
-      message: "Producto cadastrado com sucesso",
+      message: "Produto cadastrado com sucesso",
       product: newProduct.toBusinessModel()
     }
-
     return output
   }
 }
