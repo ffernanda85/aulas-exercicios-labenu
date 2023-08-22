@@ -5,6 +5,7 @@ import { SignupInputDTO, SignupOutputDTO } from "../dtos/signup.dto"
 import { BadRequestError } from "../errors/BadRequestError"
 import { NotFoundError } from "../errors/NotFoundError"
 import { TokenPayload, USER_ROLES, User } from "../models/User"
+import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
 import { TokenManager } from "../services/TokenManager"
 
@@ -12,13 +13,24 @@ export class UserBusiness {
   constructor(
     private userDatabase: UserDatabase,
     private idGenerator: IdGenerator,
-    private tokenManager: TokenManager
+    private tokenManager: TokenManager,
+    private hashManager: HashManager
   ) { }
 
   public getUsers = async (
     input: GetUsersInputDTO
   ): Promise<GetUsersOutputDTO> => {
-    const { q } = input
+    const { q, token } = input
+
+    const payload: TokenPayload | null = this.tokenManager.getPayload(token)
+
+    if (payload === null) {
+      throw new BadRequestError("invalid TOKEN");
+    }
+
+    if (payload.role !== USER_ROLES.ADMIN) {
+      throw new BadRequestError("not authorization");
+    }
 
     const usersDB = await this.userDatabase.findUsers(q)
 
@@ -45,26 +57,27 @@ export class UserBusiness {
   ): Promise<SignupOutputDTO> => {
     // const { id, name, email, password } = input
     const { name, email, password } = input
-
-    // const userDBExists = await this.userDatabase.findUserById(id)
-
-    // if (userDBExists) {
-    //   throw new BadRequestError("'id' já existe")
-    // }
-
-    console.log(this)
+    /* hasheando o password enviado */
+    const hashedPassword = await this.hashManager.hash(password)
+    /* Verificando se o email já está cadastrado */
+    const userDBExists = await this.userDatabase.findUserByEmail(email)
+    if (userDBExists) {
+      throw new BadRequestError("'email' already exists")
+    }
+    /* Gerando ID aleatório */
     const id = this.idGenerator.generate()
-
+    /* Criando o novo usuário */
     const newUser = new User(
       id,
       name,
       email,
-      password,
+      hashedPassword,
       USER_ROLES.NORMAL, // só é possível criar users com contas normais
       new Date().toISOString()
     )
-
+    /* Modelando o novo usuário para o DB */
     const newUserDB = newUser.toDBModel()
+    /* Inserindo o novo usuário, já modelado, dentro do DB */
     await this.userDatabase.insertUser(newUserDB)
 
     // modelagem do payload do token
@@ -79,7 +92,7 @@ export class UserBusiness {
 
     const output: SignupOutputDTO = {
       message: "Cadastro realizado com sucesso",
-      token: token
+      token
     }
 
     return output
@@ -90,16 +103,21 @@ export class UserBusiness {
   ): Promise<LoginOutputDTO> => {
     const { email, password } = input
 
+    /* Verificando se o usuário existe no DB pelo email (unique) */
     const userDB = await this.userDatabase.findUserByEmail(email)
-
     if (!userDB) {
       throw new NotFoundError("'email' não encontrado")
     }
 
-    if (password !== userDB.password) {
-      throw new BadRequestError("'email' ou 'password' incorretos")
-    }
+    /* Atribuindo a uma variável o valor da senha hasheada do usuário que se encontra no DB */
+    const hash = userDB.password
 
+    /* Verificando se a senha enviada confere com a do DB, através do método compare da class HashManager */
+    const isPasswordMatch = await this.hashManager.compare(password, hash)
+    if (!isPasswordMatch) {
+      throw new BadRequestError("Email and Password don't match");
+    }
+    
     const user = new User(
       userDB.id,
       userDB.name,
@@ -121,7 +139,7 @@ export class UserBusiness {
 
     const output: LoginOutputDTO = {
       message: "Login realizado com sucesso",
-      token: token
+      token
     }
 
     return output
