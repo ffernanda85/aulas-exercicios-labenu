@@ -3,9 +3,23 @@ import { pratica2 } from "../src/pratica2"
 
 describe("Testing Practice 2", () => {
     
-    test("retorna true para números pares e inteiros", () => { 
+    test("se for par retorna true", () => { 
         expect(pratica2(10)).toBe(true)
+    })
+
+    test("se impar retorna false", () => {
         expect(pratica2(11)).toBe(false)
-        
+    })
+
+    test("se não inteiro retorna null", () => {
+        expect(pratica2(10.2)).toBeNull()
+    })
+
+    test("se não for number retorna null", () => {
+        expect(pratica2("10" as any)).toBeNull()
+    })
+
+    test("se receber um array ou um objeto retorna null", () => {
+        expect(pratica2([1, 2, 3] as any || {})).toBe(null)
     })
 })

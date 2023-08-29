@@ -2,17 +2,12 @@ import { pratica3 } from '../src/pratica3'
 
 describe("Testing Practice 3", () => {
     
-    test("check if it receives 2 numbers and returns an object with 2 sum and multiplication properties", () => {
-        const result = pratica3(3, 5)
-        const expectedResult = {
-            soma: 8,
-            mult: 15
-        }
-        expect(result).toEqual(expectedResult)
+    test("check if it receives 2 numbers and ", () => {
+        expect(pratica3("abc" as any, "def" as any)).toBe(null)
     })
 
-    test("check type number", () => {
-        
+    test("check if returns an object with 2 sum and multiplication properties", () => {
+        expect(pratica3(2, 4)).toEqual({ sum: 6, mult: 8 })
     })
-
+   
 })
