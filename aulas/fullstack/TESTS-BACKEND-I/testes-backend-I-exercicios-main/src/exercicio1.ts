@@ -10,6 +10,5 @@ export const exercicio1 = (num: string): number | null => {
         return null    
     }
     const result = Number(num)
-    
     return result
 }
