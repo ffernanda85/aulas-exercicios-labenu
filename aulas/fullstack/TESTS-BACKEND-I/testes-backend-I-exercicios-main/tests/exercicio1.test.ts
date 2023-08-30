@@ -6,8 +6,8 @@ describe("Testando Função do Exercício 1", () => {
         expect(exercicio1(10 as any || {} || ["1","2","3"])).toBe(null)
     })
 
-    test("se entrada não for string de number retorna NaN", () => {
-        expect(exercicio1("ola")).toBe(NaN)
+    test("se entrada não for string de number retorna Null", () => {
+        expect(exercicio1("ola")).toBeNull()
     })
 
     test("se entrada for string, retorna number", () => {

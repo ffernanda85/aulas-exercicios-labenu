@@ -6,9 +6,10 @@ Crie pelo menos um teste que valida sua implementação.
 
 export const exercicio1 = (num: string): number | null => {
     
-    if (typeof num !== "string") {
-        return null    
-    }
-    const result = Number(num)
+    if (typeof num !== "string") return null    
+    
+    const number = Number(num)
+    const result = Number.isNaN(number) ? null : number
+
     return result
 }
