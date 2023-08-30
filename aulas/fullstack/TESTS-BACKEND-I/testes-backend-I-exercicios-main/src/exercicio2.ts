@@ -18,6 +18,7 @@ export const exercicio2 = (date: string): string | null => {
             date[9] === "1"
         ) return null */
         
+        
         const newDate = new Date(date)
         return newDate.toLocaleDateString("pt-BR")
     } 
