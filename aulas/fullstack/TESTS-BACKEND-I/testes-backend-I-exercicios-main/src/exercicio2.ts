@@ -9,6 +9,15 @@ export const exercicio2 = (date: string): string | null => {
     const dateRegex = /(\d{4})[-.\/](\d{2})[-.\/](\d{2})/
     
     if (dateRegex.exec(date) !== null) {
+        
+        /* if (
+            date[5] === "0" &&
+            date[6] === "2" &&
+            date[8] === "3" &&
+            date[9] === "0" ||
+            date[9] === "1"
+        ) return null */
+        
         const newDate = new Date(date)
         return newDate.toLocaleDateString("pt-BR")
     } 

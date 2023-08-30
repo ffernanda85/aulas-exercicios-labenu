@@ -10,6 +10,10 @@ describe("", () => {
         expect(exercicio2("aloha")).toBeNull()
     })
 
+    test("if input of invalid date returns null", () => {
+        expect(exercicio2("2023/02/31")).toBeNull()
+    })
+
     test("if sucess returns date in format: dd/mm/aaaa", () => {
         expect(exercicio2("2023/08/29")).toBe("29/08/2023")
     })
