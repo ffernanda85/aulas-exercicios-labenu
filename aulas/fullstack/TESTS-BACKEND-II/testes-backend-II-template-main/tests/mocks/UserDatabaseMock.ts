@@ -17,7 +17,7 @@ const usersMock: UserDB[] = [
     password: "hash-mock-astrodev", // senha = "astrodev99"
     created_at: new Date().toISOString(),
     role: USER_ROLES.ADMIN
-  },
+  }
 ]
 
 export class UserDatabaseMock extends BaseDatabase {
