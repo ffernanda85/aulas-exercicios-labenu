@@ -143,6 +143,8 @@ export class UserBusiness {
     const userDB: UserDB | undefined = await this.userDatabase.findUserById(id)
     if (!userDB) throw new NotFoundError("ID not found");
 
+    if(payload.id !== userDB.id && payload.role !== USER_ROLES.ADMIN) throw new BadRequestError("unauthorized user");
+    
     const userDeleted = new User(
       userDB.id,
       userDB.name,
