@@ -20,13 +20,47 @@ describe("Testando login", () => {
       email: "fulano@email.com",
       password: "fulano123"
     })
-
     const output = await userBusiness.login(input)
 
     expect(output).toEqual({
       message: "Login realizado com sucesso",
       token: "token-mock-fulano"
     })
+  })
+
+  test("erro email não é string", async () => {
+    expect.assertions(2)
+
+    try {
+      const input = LoginSchema.parse({
+        email: 123,
+        password: "fulano123"
+      })
+      await userBusiness.login(input)
+      
+    } catch (error) {
+      expect(error).toBeDefined()
+      expect(error).toBeInstanceOf(ZodError)
+    }
+  })
+
+  test("erro email não encontrado", async () => {
+    expect.assertions(3)
+
+    try {
+      const input = LoginSchema.parse({
+        email: "fulano7@email.com",
+        password: "fulano123"
+      })
+      await userBusiness.login(input)
+    } catch (error) {
+      expect(error).toBeInstanceOf(NotFoundError)
+      
+      if (error instanceof NotFoundError) {
+        expect(error.statusCode).toBe(404)
+        expect(error.message).toBe("'email' não encontrado")
+      }
+    }
   })
 
 })
