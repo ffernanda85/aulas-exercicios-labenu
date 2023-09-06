@@ -43,10 +43,9 @@ describe("Testando getUsers", () => {
     expect.assertions(3)
 
     try {
-      const input: GetUsersInputDTO = {
-        q: "",
+      const input = GetUsersSchema.parse({
         token: "lalala"
-      }
+      })
       await userBusiness.getUsers(input)
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError)
@@ -59,12 +58,10 @@ describe("Testando getUsers", () => {
 
   test("retorna erro de autorização", async () => {
     expect.assertions(3)
-
     try {
-      const input: GetUsersInputDTO = {
-        q: "",
+      const input = GetUsersSchema.parse({
         token: "token-mock-fulano"
-      }
+      })
       await userBusiness.getUsers(input)
     } catch (error) {
       expect(error).toBeInstanceOf(BadRequestError)

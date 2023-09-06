@@ -32,10 +32,10 @@ describe("Testando login", () => {
   test("retorna erro email não encontrado", async () => {
     expect.assertions(4)
     try {
-      const input: LoginInputDTO = {
+      const input = LoginSchema.parse({
         email: "fulano2@email.com",
         password: "fulano123"
-      }
+      })
   
       await userBusiness.login(input)
     } catch (error) {
@@ -51,10 +51,10 @@ describe("Testando login", () => {
   test("retorna erro email ou password incorretos", async () => {
     expect.assertions(4)
     try {
-      const input: LoginInputDTO = {
+      const input = LoginSchema.parse({
         email: "fulano@email.com",
         password: "fulano1230"
-      }
+      })
       await userBusiness.login(input)
     } catch (error) {
       expect(error).toBeDefined()

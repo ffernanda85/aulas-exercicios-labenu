@@ -1,6 +1,6 @@
 import { any } from 'zod'
 import { ProductBusiness } from '../../../src/business/ProductBusiness'
-import { GetProductsInputDTO } from '../../../src/dtos/product/getProducts.dto'
+import { GetProductsInputDTO, GetProductsSchema } from '../../../src/dtos/product/getProducts.dto'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { ProductDatabaseMock } from '../../mocks/ProductDatabaseMock'
 import { TokenManagerMock } from '../../mocks/TokenManagerMock'
@@ -14,11 +14,9 @@ describe("Testando getProducts", () => {
   )
 
   test("deve retornar uma lista de produtos", async () => {
-    const input: GetProductsInputDTO = {
-      q:'',
+    const input = GetProductsSchema.parse({
       token: 'token-mock-fulano'
-    }
-
+    })
     const output = await productBusiness.getProducts(input)
     expect(output).toHaveLength(2)
     expect(output).toEqual([
@@ -38,10 +36,10 @@ describe("Testando getProducts", () => {
   })
 
   test("deve retornar uma lista de produtos filtrados", async () => {
-    const input: GetProductsInputDTO = {
+    const input = GetProductsSchema.parse({
       q:'t',
       token: 'token-mock-fulano'
-    }
+    })
     const output = await productBusiness.getProducts(input)
     expect(output).toHaveLength(1)
     expect(output).toEqual([
@@ -58,10 +56,9 @@ describe("Testando getProducts", () => {
     expect.assertions(3)
 
     try {
-      const input: GetProductsInputDTO = {
-        q: '',
+      const input = GetProductsSchema.parse({
         token: 'token-mock-'
-      }
+      })
       await productBusiness.getProducts(input)
       
     } catch (error) {

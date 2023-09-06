@@ -1,5 +1,5 @@
 import { ProductBusiness } from "../../../src/business/ProductBusiness"
-import { CreateProductInputDTO } from "../../../src/dtos/product/createProduct.dto"
+import { CreateProductInputDTO, CreateProductSchema } from "../../../src/dtos/product/createProduct.dto"
 import { BadRequestError } from "../../../src/errors/BadRequestError"
 import { IdGeneratorMock } from "../../mocks/IdGeneratorMock"
 import { ProductDatabaseMock } from "../../mocks/ProductDatabaseMock"
@@ -13,11 +13,11 @@ describe("Testando createProduct", () => {
     )
 
     test("deve retornar uma mensagem e o produto", async () => {
-        const input: CreateProductInputDTO = {
+        const input = CreateProductSchema.parse({
             name: "fone de ouvido",
             price: 20,
             token: "token-mock-astrodev"
-        }
+        })
 
         const output = await productBusiness.createProduct(input)
         
@@ -34,13 +34,12 @@ describe("Testando createProduct", () => {
 
     test("erro token inválido", async () => {
         expect.assertions(3)
-        
         try {
-            const input: CreateProductInputDTO = {
+            const input = CreateProductSchema.parse({
                 name: "notebook",
                 price: 5000,
                 token: "lelele"
-            }
+            })
             await productBusiness.createProduct(input)
         } catch (error) {
             expect(error).toBeInstanceOf(BadRequestError)
@@ -53,13 +52,12 @@ describe("Testando createProduct", () => {
 
     test("erro de autorização", async () => {
         expect.assertions(3)
-
         try {
-            const input: CreateProductInputDTO = {
+            const input = CreateProductSchema.parse({
                 name: "Caneta Touch",
                 price: 100,
                 token: "token-mock-fulano"
-            }
+            })
             await productBusiness.createProduct(input)
         } catch (error) {
             expect(error).toBeInstanceOf(BadRequestError)
